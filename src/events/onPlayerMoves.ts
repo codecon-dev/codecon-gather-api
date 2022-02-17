@@ -2,6 +2,7 @@ import { ServerClientEventByCase, ServerClientEventContext } from "@gathertown/g
 import { plate1Location, setBossActivation, plate2Location, detectAndRegisterBossTrigger } from "../interactions/boss"
 import { detectAndRegisterKonamiMovement } from "../interactions/konamiCode"
 import { detectAndRegisterMovementRanking } from "../interactions/movementRanking"
+import { registerUser } from "../interactions/playerMoves/registerUser"
 import { detectAndTriggerRPGLikeTalking } from "../interactions/rpgLikeTalking"
 import { detectAndTeleportUnauthorizedUser } from "../interactions/teleportUnauthorizedUser"
 import { Position } from "../types"
@@ -17,6 +18,8 @@ export function onPlayerMoves(data: ServerClientEventByCase<'playerMoves'>, cont
     y: data.playerMoves?.y,
     direction: data.playerMoves?.direction,
   }
+
+  registerUser(data, context)
 
   detectAndRegisterKonamiMovement(playerNewPosition, playerPosition, playerId)
   detectAndRegisterBossTrigger(playerNewPosition, mapId)

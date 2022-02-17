@@ -1,4 +1,6 @@
-import { SpriteDirectionEnum_ENUM } from "@gathertown/gather-game-client";
+import { ServerClientEventByCase, SpriteDirectionEnum_ENUM } from "@gathertown/gather-game-client";
+
+export type PlayerMovesEvent = ServerClientEventByCase<'playerMoves'>
 
 export type Position = {
   x?: number,
