@@ -10,9 +10,12 @@ export async function registerUser(data: PlayerMovesEvent, context: ServerClient
     const user = await getUser(playerId)
     if (user) return
 
+    const playerName = context.player!.name!
+
+    console.log(`New user registered: ${playerName} (${playerId})!`)
     await createOrUpdateUser({
       gatherPlayerId: playerId,
-      gatherName: context.player!.name!
+      gatherName: playerName
     })
   } catch (error) {
     console.log(error)
