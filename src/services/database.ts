@@ -15,12 +15,12 @@ async function connectDatabase() {
 export async function createOrUpdateUser(user: User): Promise<User | undefined> {
   try {
     await connectDatabase()
-    const guild = await UserModel.findOneAndUpdate({ gatherPlayerId: user.gatherPlayerId }, user, {
+    const databaseUser = await UserModel.findOneAndUpdate({ gatherPlayerId: user.gatherPlayerId }, user, {
       new: true,
       upsert: true
     })
-    await guild.save()
-    return guild
+    await databaseUser.save()
+    return databaseUser
   } catch (error) {
     console.log(error)
   }
