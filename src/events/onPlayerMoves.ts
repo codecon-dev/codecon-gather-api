@@ -3,6 +3,7 @@ import { plate1Location, setBossActivation, plate2Location, detectAndRegisterBos
 import { detectAndRegisterKonamiMovement } from "../interactions/konamiCode"
 import { detectAndRegisterMovementRanking } from "../interactions/movementRanking"
 import { registerUser } from "../interactions/playerMoves/registerUser"
+import { trackSteps } from "../interactions/playerMoves/trackSteps"
 import { detectAndTriggerRPGLikeTalking } from "../interactions/rpgLikeTalking"
 import { detectAndTeleportUnauthorizedUser } from "../interactions/teleportUnauthorizedUser"
 import { Position } from "../types"
@@ -20,6 +21,7 @@ export function onPlayerMoves(data: ServerClientEventByCase<'playerMoves'>, cont
   }
 
   registerUser(data, context)
+  trackSteps(data, context)
 
   detectAndRegisterKonamiMovement(playerNewPosition, playerPosition, playerId)
   detectAndRegisterBossTrigger(playerNewPosition, mapId)

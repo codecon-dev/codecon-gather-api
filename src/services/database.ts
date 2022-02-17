@@ -26,6 +26,19 @@ export async function createOrUpdateUser(user: User): Promise<User | undefined> 
   }
 }
 
+export async function increaseSteps(gatherPlayerId: string) {
+  try {
+    await connectDatabase()
+    const databaseUser = await UserModel.updateOne(
+      { gatherPlayerId },
+      { $inc: { steps: 1 } }
+    )
+    return databaseUser
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 export async function getUser(gatherPlayerId: string): Promise<User | null> {
   try {
     await connectDatabase()

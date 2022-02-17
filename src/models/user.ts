@@ -11,7 +11,8 @@ const UserSchema = new Schema<User>({
     required: true
   },
   steps: {
-    type: Number
+    type: Number,
+    default: 0
   },
 })
 

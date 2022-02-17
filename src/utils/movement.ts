@@ -1,6 +1,7 @@
 import { Position } from "../types"
 
 export function getMovement(playerPosition: Position, previousPlayerPosition: Record<string, Position>, playerId: string) {
+  if (!previousPlayerPosition[playerId!]) return 'None'
   const x = playerPosition.x
   const previousX = previousPlayerPosition[playerId!].x!
   const y = playerPosition.y
