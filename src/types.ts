@@ -5,3 +5,9 @@ export type Position = {
   y?: number,
   direction?: SpriteDirectionEnum_ENUM
 }
+
+export type User = {
+  gatherPlayerId: string
+  gatherName: string
+  steps?: number
+}
