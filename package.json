@@ -10,7 +10,7 @@
     "start": "npm run build && node dist/src/index.js",
     "build": "tsc",
     "dev": "ts-node src/index.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\""
   },
   "keywords": [],
   "author": "",
@@ -21,7 +21,7 @@
     "dotenv": "^16.0.0",
     "isomorphic-ws": "^4.0.1",
     "mongoose": "^6.2.2",
-    "ws": "^8.2.1"
+    "ws": "^8.5.0"
   },
   "devDependencies": {
     "@types/node": "^16.7.10",

@@ -9,6 +9,7 @@ const apiKey = process.env.GATHER_API_KEY as string
 const mapId = process.env.GATHER_MAP_ID as string
 const spaceId = process.env.GATHER_SPACE_ID?.replace('/', '\\')
 
+// @ts-expect-error
 global.WebSocket = IsomorphicWS;
 const game = new Game(spaceId, () => Promise.resolve({ apiKey }));
 game.connect();
