@@ -7,6 +7,8 @@
     "node": "14.17.6"
   },
   "scripts": {
+    "start": "npm run build && node dist/src/index.js",
+    "build": "tsc",
     "dev": "ts-node src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -23,6 +25,7 @@
   },
   "devDependencies": {
     "@types/node": "^16.7.10",
+    "@types/ws": "^8.2.2",
     "@typescript-eslint/eslint-plugin": "^4.33.0",
     "eslint": "^7.32.0",
     "eslint-config-standard-with-typescript": "^21.0.1",
