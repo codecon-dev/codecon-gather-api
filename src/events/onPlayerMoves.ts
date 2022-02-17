@@ -8,12 +8,12 @@ import { Position } from "../types"
 
 const playerPosition: Record<string, Position> = {}
 
-export function onPlayerMoves (data: ServerClientEventByCase<'playerMoves'>, context: ServerClientEventContext) {
+export function onPlayerMoves(data: ServerClientEventByCase<'playerMoves'>, context: ServerClientEventContext) {
   const player = context?.player
   const playerId = context?.playerId!
   const mapId = player?.map as string
-  const playerNewPosition = { 
-    x: data.playerMoves?.x, 
+  const playerNewPosition = {
+    x: data.playerMoves?.x,
     y: data.playerMoves?.y,
     direction: data.playerMoves?.direction,
   }
