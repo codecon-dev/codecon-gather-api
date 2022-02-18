@@ -2,7 +2,8 @@ import { Game } from "@gathertown/gather-game-client";
 import IsomorphicWS from "isomorphic-ws"
 import { onPlayerInteraction } from "./events/onPlayerInteraction";
 import { onPlayerMoves } from "./events/onPlayerMoves";
-import { initializeInteractionStates } from "./initialize";
+import { startUsersUpdateSimulation } from "./services/simulation";
+import UsersMananger from "./services/users";
 require('dotenv').config()
 
 const apiKey = process.env.GATHER_API_KEY as string
@@ -20,9 +21,14 @@ game.subscribeToConnection((connected) => {
   }
 
   console.log('Connected!')
-  initializeInteractionStates(mapId)
+  // initializeInteractionStates(mapId)
   game.subscribeToEvent("playerInteracts", onPlayerInteraction);
   game.subscribeToEvent("playerMoves", onPlayerMoves);
+
+  startUsersUpdateSimulation()
+
+  const usersManager = UsersMananger.getInstance()
+  usersManager.startUsersDatabaseUpdater()
 });
 
 export default game

@@ -12,5 +12,7 @@ export type Position = {
 export type User = {
   gatherPlayerId: string
   gatherName: string
-  steps?: number
+  steps?: number,
+  interactions?: number,
+  messages?: number,
 }

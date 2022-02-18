@@ -14,6 +14,14 @@ const UserSchema = new Schema<User>({
     type: Number,
     default: 0
   },
+  interactions: {
+    type: Number,
+    default: 0
+  },
+  messages: {
+    type: Number,
+    default: 0
+  }
 })
 
 const UserModel = model<User>('User', UserSchema)
