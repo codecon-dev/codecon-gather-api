@@ -25,7 +25,7 @@ game.subscribeToConnection((connected) => {
   game.subscribeToEvent("playerInteracts", onPlayerInteraction);
   game.subscribeToEvent("playerMoves", onPlayerMoves);
 
-  startUsersUpdateSimulation()
+  // startUsersUpdateSimulation()
 
   const usersManager = UsersMananger.getInstance()
   usersManager.startUsersDatabaseUpdater()

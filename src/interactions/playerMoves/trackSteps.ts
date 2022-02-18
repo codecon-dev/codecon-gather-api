@@ -1,5 +1,5 @@
 import { ServerClientEventContext } from "@gathertown/gather-game-client";
-import { increaseSteps } from "../../services/database";
+import UserManager from "../../services/users";
 import { PlayerMovesEventData, Position } from "../../types";
 import { getMovement } from "../../utils/movement";
 
@@ -8,6 +8,11 @@ export const playerPosition: Record<string, Position> = {}
 export async function trackSteps(data: PlayerMovesEventData, context: ServerClientEventContext) {
   try {
     const playerId = context?.playerId!
+
+    const userManager = UserManager.getInstance()
+    const user = userManager.getUserInMemory(playerId)
+    if (!user) return
+
     const playerNewPosition = {
       x: data.playerMoves?.x,
       y: data.playerMoves?.y,
@@ -16,7 +21,11 @@ export async function trackSteps(data: PlayerMovesEventData, context: ServerClie
 
     const userMovement = getMovement(playerNewPosition, playerPosition, playerId)
     if (userMovement !== 'Same' && userMovement !== 'None') {
-      await increaseSteps(playerId)
+      const steps = user.steps ? user.steps + 1 : 1
+      userManager.updateUserInMemory({
+        ...user,
+        steps
+      })
     }
 
     playerPosition[playerId] = playerNewPosition
