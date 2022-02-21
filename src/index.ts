@@ -1,5 +1,6 @@
 import { Game } from "@gathertown/gather-game-client";
 import IsomorphicWS from "isomorphic-ws"
+import { onPlayerChats } from "./events/onPlayerChats";
 import { onPlayerInteraction } from "./events/onPlayerInteraction";
 import { onPlayerMoves } from "./events/onPlayerMoves";
 import { startUsersUpdateSimulation } from "./services/simulation";
@@ -24,6 +25,7 @@ game.subscribeToConnection((connected) => {
   // initializeInteractionStates(mapId)
   game.subscribeToEvent("playerInteracts", onPlayerInteraction);
   game.subscribeToEvent("playerMoves", onPlayerMoves);
+  game.subscribeToEvent("playerChats", onPlayerChats);
 
   // startUsersUpdateSimulation()
 
