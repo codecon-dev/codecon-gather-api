@@ -16,7 +16,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@gathertown/gather-game-client": "33.0.3",
+    "@gathertown/gather-game-client": "34.0.0",
     "axios": "^0.25.0",
     "dotenv": "^16.0.0",
     "isomorphic-ws": "^4.0.1",
