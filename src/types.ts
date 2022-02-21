@@ -3,6 +3,8 @@ import { ServerClientEventByCase, SpriteDirectionEnum_ENUM } from "@gathertown/g
 export type PlayerMovesEventData = ServerClientEventByCase<'playerMoves'>
 export type PlayerInteractsEventData = ServerClientEventByCase<'playerInteracts'>
 export type PlayerChatsEventData = ServerClientEventByCase<'playerChats'>
+export type PlayerJoinsEventData = ServerClientEventByCase<'playerJoins'>
+export type PlayerExitsEventData = ServerClientEventByCase<'playerExits'>
 
 export type Position = {
   x?: number,
@@ -23,4 +25,8 @@ export type User = {
   interactions?: number,
   objectInteractions?: ObjectInteraction[],
   messages?: number,
+  isOnline?: boolean,
+  lastJoined?: number,
+  lastExited?: number,
+  timeOnlineInMinutes?: number
 }

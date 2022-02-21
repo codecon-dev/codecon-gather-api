@@ -31,6 +31,22 @@ const UserSchema = new Schema<User>({
   messages: {
     type: Number,
     default: 0
+  },
+  isOnline: {
+    type: Boolean,
+    default: true
+  },
+  lastJoined: {
+    type: Number,
+    default: 0,
+  },
+  lastExited: {
+    type: Number,
+    default: 0,
+  },
+  timeOnlineInMinutes: {
+    type: Number,
+    default: 0
   }
 })
 
