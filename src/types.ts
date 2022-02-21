@@ -9,10 +9,17 @@ export type Position = {
   direction?: SpriteDirectionEnum_ENUM
 }
 
+export type ObjectInteraction = {
+  objectId: string,
+  mapId: string,
+  count: number
+}
+
 export type User = {
   gatherPlayerId: string
   gatherName: string
   steps?: number,
   interactions?: number,
+  objectInteractions?: ObjectInteraction[],
   messages?: number,
 }

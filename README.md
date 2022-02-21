@@ -2,6 +2,8 @@
 
 An API that interacts with Gather.town API and customizes the user experience on the CodeCon Tech Event!
 
+Test Map: https://gather.town/app/5jnhRfDYRIUyDmbF/codecon-gather-api
+
 ## How to Develop
 
 ```bash
