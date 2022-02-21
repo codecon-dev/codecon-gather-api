@@ -1,10 +1,11 @@
-import { ServerClientEventByCase, SpriteDirectionEnum_ENUM } from "@gathertown/gather-game-client";
+import { ServerClientEventByCase, SpriteDirectionEnum_ENUM, WireObject } from "@gathertown/gather-game-client";
 
 export type PlayerMovesEventData = ServerClientEventByCase<'playerMoves'>
 export type PlayerInteractsEventData = ServerClientEventByCase<'playerInteracts'>
 export type PlayerChatsEventData = ServerClientEventByCase<'playerChats'>
 export type PlayerJoinsEventData = ServerClientEventByCase<'playerJoins'>
 export type PlayerExitsEventData = ServerClientEventByCase<'playerExits'>
+export type PlayerSetsEmoteEventData = ServerClientEventByCase<'playerSetsEmoteV2'>
 
 export type Position = {
   x?: number,
@@ -30,3 +31,5 @@ export type User = {
   lastExited?: number,
   timeOnlineInMinutes?: number
 }
+
+export type WiredObjectListPerKey = Record<number, WireObject>
