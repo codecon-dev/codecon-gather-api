@@ -11,23 +11,20 @@ import { startUsersUpdateSimulation } from "../services/simulation";
 class GatherManager {
   private static instance: GatherManager;
   private apiKey: string
-  private mapId: string
   private spaceId: string
   public game!: Game
   public unsubscribeFromConnection!: () => void
 
-  constructor(apiKey: string, mapId: string, spaceId: string) {
+  constructor(apiKey: string, spaceId: string) {
     this.apiKey = apiKey
-    this.mapId = mapId
     this.spaceId = spaceId
   }
 
   public static getInstance(): GatherManager {
     if (!GatherManager.instance) {
       const apiKey = process.env.GATHER_API_KEY as string
-      const mapId = process.env.GATHER_MAP_ID as string
       const spaceId = process.env.GATHER_SPACE_ID!.replace('/', '\\')
-      GatherManager.instance = new GatherManager(apiKey, mapId, spaceId)
+      GatherManager.instance = new GatherManager(apiKey, spaceId)
     }
 
     return GatherManager.instance
@@ -54,7 +51,6 @@ class GatherManager {
         return resolve()
       });
     })
-
   }
 
   subscribeToEvents() {
@@ -64,6 +60,7 @@ class GatherManager {
     this.game.subscribeToEvent("playerJoins", onPlayerJoins);
     this.game.subscribeToEvent("playerExits", onPlayerExits);
     this.game.subscribeToEvent("playerSetsEmoteV2", onPlayerSetsEmote);
+    console.log('Subscribed to events!')
   }
 }
 
