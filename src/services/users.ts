@@ -83,6 +83,10 @@ class UserManager {
 
   public async updateUsersInDatabase() {
     const users = this.getUsersInMemory()
+    if (!users.length) {
+      await wait(1000)
+      return
+    }
     const userChunksToUpdate: User[][] = this.splitUsersIntoChunks(users, 100)
 
     this.isUpdating = true
@@ -113,7 +117,8 @@ class UserManager {
   }
 
   private async loadUsersFromDatabase() {
-    this.users = await getAllUsers()
+    const databaseUsers = await getAllUsers()
+    this.users = databaseUsers || []
     this.hasLoadedUsers = true
     console.log('Users loaded!')
   }
