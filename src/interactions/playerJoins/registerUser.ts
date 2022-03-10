@@ -16,7 +16,9 @@ export async function registerUser(data: PlayerJoinsEventData, context: ServerCl
     const userManager = UserManager.getInstance()
     userManager.createUserInMemory({
       gatherPlayerId: playerId,
-      gatherName: playerName
+      gatherName: playerName,
+      isOnline: true,
+      lastJoined: Date.now()
     })
     console.log(`New user registered: ${playerName} (${playerId})!`)
   } catch (error) {
