@@ -5,7 +5,6 @@ import { PlayerJoinsEventData } from "../../types";
 
 export async function registerUser(data: PlayerJoinsEventData, context: ServerClientEventContext) {
   try {
-    console.log(context)
     const playerId = context.playerId
     if (!playerId) return
 
