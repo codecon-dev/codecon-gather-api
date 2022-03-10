@@ -1,10 +1,11 @@
 import { ServerClientEventContext } from "@gathertown/gather-game-client";
-import { createOrUpdateUser, getUser } from "../../services/database";
+import { getUser } from "../../services/database";
 import UserManager from "../../services/users";
-import { PlayerMovesEventData } from "../../types";
+import { PlayerJoinsEventData } from "../../types";
 
-export async function registerUser(data: PlayerMovesEventData, context: ServerClientEventContext) {
+export async function registerUser(data: PlayerJoinsEventData, context: ServerClientEventContext) {
   try {
+    console.log(context)
     const playerId = context.playerId
     if (!playerId) return
 
