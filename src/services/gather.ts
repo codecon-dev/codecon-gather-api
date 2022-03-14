@@ -6,6 +6,7 @@ import { onPlayerInteraction } from "../events/onPlayerInteraction";
 import { onPlayerJoins } from "../events/onPlayerJoins";
 import { onPlayerMoves } from "../events/onPlayerMoves";
 import { onPlayerSetsEmote } from "../events/onPlayerSetsEmote";
+import { onPlayerSetsName } from "../events/onPlayerSetsName";
 import { startUsersUpdateSimulation } from "../services/simulation";
 
 class GatherManager {
@@ -60,6 +61,7 @@ class GatherManager {
     this.game.subscribeToEvent("playerJoins", onPlayerJoins);
     this.game.subscribeToEvent("playerExits", onPlayerExits);
     this.game.subscribeToEvent("playerSetsEmoteV2", onPlayerSetsEmote);
+    this.game.subscribeToEvent("playerSetsName", onPlayerSetsName);
     console.log('Subscribed to events!')
   }
 }
