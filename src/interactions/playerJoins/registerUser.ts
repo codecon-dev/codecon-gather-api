@@ -11,7 +11,7 @@ export async function registerUser(data: PlayerJoinsEventData, context: ServerCl
     const user = await getUser(playerId)
     if (user) return
 
-    const playerName = context.player!.name!
+    const playerName = context.player!.name! || String(context.playerId)
 
     const userManager = UserManager.getInstance()
     userManager.createUserInMemory({
