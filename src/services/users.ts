@@ -10,6 +10,7 @@ class UserManager {
   private isKeepUpdatingUsersActive = true
   private isStopCurrentUpdateActive = false
   private isUpdating = false
+  private lastOnlineTimeUpdate = 0
 
   private constructor() {
     this.loadUsersFromDatabase()
@@ -87,7 +88,9 @@ class UserManager {
       await wait(1000)
       return
     }
-    const userChunksToUpdate: User[][] = this.splitUsersIntoChunks(users, 100)
+
+    const usersWithUpdatedTimeOnline = this.updateUsersOnlineTime(users)
+    const userChunksToUpdate: User[][] = this.splitUsersIntoChunks(usersWithUpdatedTimeOnline, 100)
 
     this.isUpdating = true
     for (let chunksIndex = 0; chunksIndex < userChunksToUpdate.length; chunksIndex++) {
@@ -99,7 +102,7 @@ class UserManager {
           console.log('[UserManager] Stopping update cycle!')
           return
         }
-        const user = users[usersIndex];
+        const user = usersWithUpdatedTimeOnline[usersIndex];
         await createOrUpdateUser(user)
       }
       console.log(`[UserManager] Updated chunk ${chunksIndex} with ${chunk.length} users`)
@@ -124,16 +127,33 @@ class UserManager {
   }
 
   public setUserAsOfflineInMemory(user: User) {
-    const timeSinceLastJoined = getTimeInMinutesSince(user.lastJoined!)
-    const timeOnline = user.timeOnlineInMinutes
     const offlineUser = {
       ...user,
       isOnline: false,
       lastExited: Date.now(),
-      timeOnlineInMinutes: timeOnline ? (timeOnline + timeSinceLastJoined) : timeSinceLastJoined
     }
-
     this.updateUserInMemory(offlineUser)
+  }
+
+  private updateUsersOnlineTime(users: User[]) {
+    const now = Number(new Date(Date.now()))
+    if (!this.lastOnlineTimeUpdate) {
+      this.lastOnlineTimeUpdate = now
+      return users
+    }
+    const timeDiff = now - this.lastOnlineTimeUpdate
+    const timeDiffInMinutes = timeDiff / (1000 * 60)
+    this.lastOnlineTimeUpdate = now
+
+    return users.reduce((users: User[], user: User) => {
+      if (!user.isOnline) return users
+      const timeOnline = user.timeOnlineInMinutes || 0
+      const updatedUser = {
+        ...user,
+        timeOnlineInMinutes: timeOnline + timeDiffInMinutes
+      }
+      return [...users, updatedUser]
+    }, [])
   }
 }
 
