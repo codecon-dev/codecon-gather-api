@@ -1,4 +1,5 @@
-import { ServerClientEventByCase, SpriteDirectionEnum_ENUM, WireObject } from "@gathertown/gather-game-client";
+import { SpriteDirectionEnum_ENUM, WireObject } from "@gathertown/gather-game-client";
+import { ServerClientEventByCase } from "@gathertown/gather-game-client/dist/src/public/utils";
 
 export type PlayerMovesEventData = ServerClientEventByCase<'playerMoves'>
 export type PlayerInteractsEventData = ServerClientEventByCase<'playerInteracts'>

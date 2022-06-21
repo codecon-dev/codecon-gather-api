@@ -1,4 +1,4 @@
-import { ServerClientEventContext } from "@gathertown/gather-game-client"
+import { ServerClientEventContext } from "@gathertown/gather-game-client/dist/src/public/utils";
 import { trackExit } from "../interactions/playerExits/trackExit"
 import { PlayerExitsEventData } from "../types"
 

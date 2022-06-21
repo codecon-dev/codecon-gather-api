@@ -1,4 +1,4 @@
-import { ServerClientEventContext } from "@gathertown/gather-game-client";
+import { ServerClientEventContext } from "@gathertown/gather-game-client/dist/src/public/utils";
 import UserManager from "../../services/users";
 import { PlayerMovesEventData, Position } from "../../types";
 import { getMovement } from "../../utils/movement";

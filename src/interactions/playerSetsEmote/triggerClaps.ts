@@ -1,4 +1,4 @@
-import { ServerClientEventContext } from "@gathertown/gather-game-client";
+import { ServerClientEventContext } from "@gathertown/gather-game-client/dist/src/public/utils";
 import GatherManager from "../../services/gather";
 import { PlayerSetsEmoteEventData } from "../../types";
 import { debounce } from "../../utils/debounce";

@@ -10,13 +10,15 @@
     "start": "npm run build && node dist/src/index.js",
     "build": "tsc",
     "dev": "ts-node src/index.ts",
-    "test": "echo \"Error: no test specified\""
+    "test": "echo \"Error: no test specified\"",
+    "reinstall": "rm -rf node_modules && rm package-lock.json && npm i"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@gathertown/gather-game-client": "34.0.0",
+    "@gathertown/gather-game-client": "^37.0.1",
+    "@gathertown/gather-game-common": "^29.0.1",
     "axios": "^0.25.0",
     "dotenv": "^16.0.0",
     "isomorphic-ws": "^4.0.1",
