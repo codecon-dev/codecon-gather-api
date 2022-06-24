@@ -1,4 +1,4 @@
-import { Position } from "../types"
+import { PlayerMovesEventData, Position } from "../types"
 
 export function getMovement(playerPosition: Position, previousPlayerPosition: Record<string, Position>, playerId: string) {
   if (!previousPlayerPosition[playerId!]) return 'None'
@@ -12,4 +12,19 @@ export function getMovement(playerPosition: Position, previousPlayerPosition: Re
   if (x === (previousX - 1)) return "Left"
   if (x === previousX && y === previousY) return "Same"
   return 'None'
+}
+
+export function hasMatchingCoordinates(playerCoord: Position, targetCoord: Position) {
+  if (playerCoord.x !== targetCoord.x) return false
+  if (playerCoord.y !== targetCoord.y) return false
+  if (targetCoord.direction && playerCoord.direction !== targetCoord.direction) return false
+  return true
+}
+
+export function getPosition(data: PlayerMovesEventData): Position {
+  return {
+    x: data.playerMoves?.x,
+    y: data.playerMoves?.y,
+    direction: data.playerMoves?.direction,
+  }
 }

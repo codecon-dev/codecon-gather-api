@@ -13,7 +13,7 @@ async function start() {
     const userManager = UserManager.getInstance()
     userManager.startUsersDatabaseUpdater()
 
-    new ShutdownManager(gatherManager.unsubscribeFromConnection)
+    // new ShutdownManager(gatherManager.unsubscribeFromConnection)
   } catch (error) {
     console.log(error)
   }
