@@ -37,3 +37,4 @@ You can also `Ctrl+Click` on the payload class names to check their content. In 
 * [Gather HTTP API Documentation](https://www.notion.so/Gather-HTTP-API-3bbf6c59325f40aca7ef5ce14c677444)
 * [The Forest API Interaction Example](https://github.com/gathertown/the-forest)
 * [Gather Forum](https://forum.gather.town/c/developers/api-questions/9)
+* [Deleted Code References](https://github.com/codecon-dev/codecon-gather-api/commit/484ad215a18b7880eb88d70f6dc79ca4882761da#diff-dc697555e8ec61509edd340ba26f29b4257f08a420ce81a085c1ed9ed1432b56)
