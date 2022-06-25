@@ -2,7 +2,7 @@
 
 An API that interacts with Gather.town API and customizes the user experience on the CodeCon Tech Event!
 
-Test Map: https://gather.town/app/5jnhRfDYRIUyDmbF/codecon-gather-api
+Test Map: https://app.gather.town/mapmaker/Ixw7EUhrLHlfQwqb/codecon-gather-api-test-1
 
 ## How to Develop
 
@@ -11,7 +11,7 @@ Test Map: https://gather.town/app/5jnhRfDYRIUyDmbF/codecon-gather-api
 cp .env.example .env
 
 # Set the environment variables on .env
-# Get GATHER_API_KEY from https://gather.town/apiKeys
+# Get GATHER_API_KEY from https://app.gather.town/apiKeys
 # Get GATHER_SPACE_ID from your space URL.
 # Eg: 5jnhRfDYRIUyDmbF/my-space
 
