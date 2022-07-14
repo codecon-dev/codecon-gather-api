@@ -21,9 +21,7 @@ export type ObjectInteraction = {
   count: number
 }
 
-export type User = {
-  gatherPlayerId: string
-  gatherName: string
+export type Stats = {
   steps?: number,
   interactions?: number,
   objectInteractions?: ObjectInteraction[],
@@ -32,6 +30,14 @@ export type User = {
   lastJoined?: number,
   lastExited?: number,
   timeOnlineInMinutes?: number
+}
+
+export type SpaceStats = Record<string, Stats>
+
+export type User = {
+  gatherPlayerId: string
+  gatherName: string
+  spaces?: SpaceStats
 }
 
 export type WiredObjectListPerKey = Record<number, WireObject>

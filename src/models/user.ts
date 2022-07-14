@@ -1,10 +1,21 @@
 import { Schema, model } from 'mongoose'
-import { User, ObjectInteraction } from '../types'
+import { User, ObjectInteraction, SpaceStats, Stats } from '../types'
 
 const ObjectInteractionSchema = new Schema<ObjectInteraction>({
   objectId: String,
   mapId: String,
   count: Number
+});
+
+const StatsSchema = new Schema<Stats>({
+  steps: Number,
+  interactions: Number,
+  objectInteractions: [ObjectInteractionSchema],
+  messages: Number,
+  isOnline: Boolean,
+  lastJoined: Number,
+  lastExited: Number,
+  timeOnlineInMinutes: Number
 });
 
 const UserSchema = new Schema<User>({
@@ -16,37 +27,9 @@ const UserSchema = new Schema<User>({
     type: String,
     required: true
   },
-  steps: {
-    type: Number,
-    default: 0
-  },
-  interactions: {
-    type: Number,
-    default: 0
-  },
-  objectInteractions: {
-    type: [ObjectInteractionSchema],
-    default: [],
-  },
-  messages: {
-    type: Number,
-    default: 0
-  },
-  isOnline: {
-    type: Boolean,
-    default: true
-  },
-  lastJoined: {
-    type: Number,
-    default: 0,
-  },
-  lastExited: {
-    type: Number,
-    default: 0,
-  },
-  timeOnlineInMinutes: {
-    type: Number,
-    default: 0
+  spaces: {
+    type: Map,
+    of: StatsSchema
   }
 })
 

@@ -1,11 +1,11 @@
 import { PlayerMovesEventData, Position } from "../types"
 
-export function getMovement(playerPosition: Position, previousPlayerPosition: Record<string, Position>, playerId: string) {
-  if (!previousPlayerPosition[playerId!]) return 'None'
+export function getMovement(playerPosition: Position, previousPlayerPosition: Position) {
+  if (!previousPlayerPosition) return 'None'
   const x = playerPosition.x
-  const previousX = previousPlayerPosition[playerId!].x!
+  const previousX = previousPlayerPosition.x!
   const y = playerPosition.y
-  const previousY = previousPlayerPosition[playerId!].y!
+  const previousY = previousPlayerPosition.y!
   if (y === (previousY - 1)) return "Up"
   if (y === (previousY + 1)) return "Down"
   if (x === (previousX + 1)) return "Right"

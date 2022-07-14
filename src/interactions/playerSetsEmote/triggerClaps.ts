@@ -1,5 +1,5 @@
+import { Game } from "@gathertown/gather-game-client";
 import { ServerClientEventContext } from "@gathertown/gather-game-client/dist/src/public/utils";
-import GatherManager from "../../services/gather";
 import { PlayerSetsEmoteEventData } from "../../types";
 import { debounce } from "../../utils/debounce";
 import { changeSoundSrcForObjectKeys, getMapObjectById } from "../../utils/objects";
@@ -30,7 +30,7 @@ function resetMapIdClaps(mapId: string) {
 
 const debouncedResetClaps = debounce(resetMapIdClaps, RESET_EMOTES_TIME_IN_SECONDS * 1000)
 
-export async function triggerClaps(data: PlayerSetsEmoteEventData, context: ServerClientEventContext) {
+export async function triggerClaps(data: PlayerSetsEmoteEventData, context: ServerClientEventContext, game: Game) {
   try {
     if (isOnCooldown) return
     if (!data.playerSetsEmoteV2.emote) return
@@ -59,7 +59,6 @@ export async function triggerClaps(data: PlayerSetsEmoteEventData, context: Serv
     }
 
     debouncedResetClaps.cancel()
-    const { game } = GatherManager.getInstance()
     const { key } = getMapObjectById(game, OBJECT_ID_TO_PLAY_CLAPS, mapId)
     changeSoundSrcForObjectKeys(game, [key!], mapId, CLAPS_SOUND_URL)
     resetMapIdClaps(mapId)

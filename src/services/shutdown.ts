@@ -1,13 +1,14 @@
 import process from 'process';
+import GatherManager from './gather';
 import UserMananger from "./users";
 
 class ShutdownManager {
   private static instance: ShutdownManager;
-  private unsubscribeFromConnection: () => void;
   private isShuttingDown = false
+  private gatherManagers: GatherManager[] = []
 
-  constructor(unsubscribeFromConnection: () => void) {
-    this.unsubscribeFromConnection = unsubscribeFromConnection
+  constructor(gatherManagers: GatherManager[]) {
+    this.gatherManagers = gatherManagers
     this.listenToProcessSignals()
   }
 
@@ -22,7 +23,9 @@ class ShutdownManager {
     this.isShuttingDown = true
 
     console.log('[ShutdownManager] Unsubscribing from Gather WebSocket connection...')
-    this.unsubscribeFromConnection()
+    this.gatherManagers.forEach((manager) => {
+      manager.unsubscribeFromConnection()
+    })
 
     console.log('[ShutdownManager] Disabling users database auto updater....')
     const userManager = UserMananger.getInstance()
@@ -32,7 +35,7 @@ class ShutdownManager {
 
     console.log('[ShutdownManager] Setting all users in memory as offline...')
     const users = userManager.getUsersInMemory()
-    users.forEach(user => userManager.setUserAsOfflineInMemory(user))
+    users.forEach(user => userManager.setUserAsOfflineInMemoryInAllSpaces(user))
 
     console.log('[ShutdownManager] Updating database users one last time...')
     await userManager.updateUsersInDatabase()

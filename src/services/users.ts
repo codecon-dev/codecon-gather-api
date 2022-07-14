@@ -1,4 +1,5 @@
 import { User } from "../types";
+import { updateUserSpaceStat } from "../utils/spaces";
 import { wait } from "../utils/time";
 import { getTimeInMinutesSince } from "../utils/time";
 import { createOrUpdateUser, getAllUsers } from "./database";
@@ -13,7 +14,6 @@ class UserManager {
   private lastOnlineTimeUpdate = 0
 
   private constructor() {
-    this.loadUsersFromDatabase()
   }
 
   public static getInstance(): UserManager {
@@ -119,20 +119,29 @@ class UserManager {
     });
   }
 
-  private async loadUsersFromDatabase() {
+  public async loadUsersFromDatabase() {
     const databaseUsers = await getAllUsers()
     this.users = databaseUsers || []
     this.hasLoadedUsers = true
-    console.log('Users loaded!')
+    console.log('[UserManager] Users loaded!')
+    return this.users
   }
 
-  public setUserAsOfflineInMemory(user: User) {
-    const offlineUser = {
-      ...user,
+  public setUserAsOfflineInMemory(user: User, friendlySpaceId: string) {
+    const updatedSpaceStats = {
       isOnline: false,
       lastExited: Date.now(),
     }
-    this.updateUserInMemory(offlineUser)
+    this.updateUserInMemory(updateUserSpaceStat(user, friendlySpaceId, updatedSpaceStats))
+  }
+
+  public setUserAsOfflineInMemoryInAllSpaces(user: User) {
+    for (const friendlySpaceId in user.spaces) {
+      if (!Object.prototype.hasOwnProperty.call(user.spaces, friendlySpaceId)) {
+        continue
+      }
+      this.setUserAsOfflineInMemory(user, friendlySpaceId)
+    }
   }
 
   private updateUsersOnlineTime(users: User[]) {
@@ -146,12 +155,20 @@ class UserManager {
     this.lastOnlineTimeUpdate = now
 
     return users.reduce((users: User[], user: User) => {
-      if (!user.isOnline) return users
-      const timeOnline = user.timeOnlineInMinutes || 0
-      const updatedUser = {
-        ...user,
-        timeOnlineInMinutes: timeOnline + timeDiffInMinutes
+      let updatedUser = user
+      for (const friendlySpaceId in user.spaces) {
+        if (!Object.prototype.hasOwnProperty.call(user.spaces, friendlySpaceId)) {
+          continue
+        }
+
+        const spaces = user.spaces || {}
+        const space = spaces[friendlySpaceId] || {}
+        if (!space.isOnline) continue
+        const timeOnline = space.timeOnlineInMinutes || 0
+        const updatedSpaceStats = { timeOnlineInMinutes: timeOnline + timeDiffInMinutes }
+        updatedUser = updateUserSpaceStat(user, friendlySpaceId, updatedSpaceStats)
       }
+
       return [...users, updatedUser]
     }, [])
   }
