@@ -137,12 +137,15 @@ class UserManager {
 
   public setUserAsOfflineInMemoryInAllSpaces(user: User) {
     const todayDate = getTodayDate()
+    let updatedUser = user
     for (const friendlySpaceId in user.spacesByDate[todayDate]) {
       if (!Object.prototype.hasOwnProperty.call(user.spacesByDate[todayDate], friendlySpaceId)) {
         continue
       }
-      this.setUserAsOfflineInMemory(user, friendlySpaceId)
+      this.setUserAsOfflineInMemory(updatedUser, friendlySpaceId)
+      updatedUser = this.getUserInMemory(updatedUser.gatherPlayerId)!
     }
+
   }
 
   private updateUsersOnlineTime() {
