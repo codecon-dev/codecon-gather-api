@@ -9,7 +9,6 @@ class UserManager {
   private users: User[] = []
   public hasLoadedUsers = false
   private isKeepUpdatingUsersActive = true
-  private isStopCurrentUpdateActive = false
   private isUpdating = false
   private lastOnlineTimeUpdate = 0
 
@@ -26,10 +25,6 @@ class UserManager {
 
   public setKeepUpdatingUsers(active: boolean) {
     this.isKeepUpdatingUsersActive = active
-  }
-
-  public stopCurrentUpdate(active: boolean) {
-    this.isStopCurrentUpdateActive = active
   }
 
   public getUserInMemory(gatherPlayerId: string): User | undefined {
@@ -91,17 +86,10 @@ class UserManager {
     }
 
     const userChunksToUpdate: User[][] = this.splitUsersIntoChunks(users, 100)
-
     this.isUpdating = true
     for (let chunksIndex = 0; chunksIndex < userChunksToUpdate.length; chunksIndex++) {
       const chunk = userChunksToUpdate[chunksIndex]
       for (let usersIndex = 0; usersIndex < chunk.length; usersIndex++) {
-        if (this.isStopCurrentUpdateActive) {
-          this.isStopCurrentUpdateActive = false
-          this.isUpdating = false
-          console.log('[UserManager] Stopping update cycle!')
-          return
-        }
         const user = users[usersIndex];
         await createOrUpdateUser(user)
       }

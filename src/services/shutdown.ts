@@ -30,7 +30,6 @@ class ShutdownManager {
     console.log('[ShutdownManager] Disabling users database auto updater....')
     const userManager = UserMananger.getInstance()
     userManager.setKeepUpdatingUsers(false)
-    userManager.stopCurrentUpdate(true)
     await userManager.waitForLastUpdate()
 
     console.log('[ShutdownManager] Setting all users in memory as offline...')
