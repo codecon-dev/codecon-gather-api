@@ -136,8 +136,9 @@ class UserManager {
   }
 
   public setUserAsOfflineInMemoryInAllSpaces(user: User) {
-    for (const friendlySpaceId in user.spaces) {
-      if (!Object.prototype.hasOwnProperty.call(user.spaces, friendlySpaceId)) {
+    const todayDate = getTodayDate()
+    for (const friendlySpaceId in user.spacesByDate[todayDate]) {
+      if (!Object.prototype.hasOwnProperty.call(user.spacesByDate[todayDate], friendlySpaceId)) {
         continue
       }
       this.setUserAsOfflineInMemory(user, friendlySpaceId)
@@ -160,8 +161,8 @@ class UserManager {
         if (!Object.prototype.hasOwnProperty.call(user.spaces, friendlySpaceId)) {
           continue
         }
-
-        const spaces = user.spaces || {}
+        
+        const spaces = user.spacesByDate[todayDate] || {}
         const space = spaces[friendlySpaceId] || {}
         if (!space.isOnline) continue
         const timeOnline = space.timeOnlineInMinutes || 0

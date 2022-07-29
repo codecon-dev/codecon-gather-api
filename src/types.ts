@@ -34,10 +34,12 @@ export type Stats = {
 
 export type SpaceStats = Record<string, Stats>
 
+export type SpacesByDate = Record<string, SpaceStats>
+
 export type User = {
   gatherPlayerId: string
   gatherName: string
-  spaces?: SpaceStats
+  spacesByDate: SpacesByDate
 }
 
 export type WiredObjectListPerKey = Record<number, WireObject>

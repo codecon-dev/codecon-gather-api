@@ -15,22 +15,34 @@ export function getFriendlySpaceId(spaceId: string) {
   return spaceId.split('\\')[1]
 }
 
-export function updateUserSpaceStat(user: User, friendlySpaceId: string, spaceStat: Record<string, any>) {
-  const spaces = user.spaces || {}
-  const space = spaces[friendlySpaceId] || {}
+export function updateUserSpaceStat(user: User, friendlySpaceId: string, spaceStat: Record<string, any>): User {
+  const todayDate = getTodayDate()
+  const spacesByDate = user.spacesByDate || {}
+  const spacesForCurrentDate = spacesByDate[todayDate] || {}
+  const space = spacesForCurrentDate[friendlySpaceId] || {}
   return {
     ...user,
-    spaces: {
-      ...spaces,
-      [friendlySpaceId]: {
-        ...space,
-        ...spaceStat
+    spacesByDate: {
+      ...spacesByDate,
+      [todayDate]: {
+        ...spacesForCurrentDate,
+        [friendlySpaceId]: {
+          ...space,
+          ...spaceStat
+        }
       }
     }
   }
 }
 
 export function getSpace(user: User, friendlySpaceId: string) {
-  const spaces = user.spaces || {}
-  return spaces[friendlySpaceId] || {}
+  const todayDate = getTodayDate()
+  const spacesByDate = user.spacesByDate || {}
+  const spacesForCurrentDate = spacesByDate[todayDate] || {}
+  return spacesForCurrentDate[friendlySpaceId] || {}
+}
+
+export function getTodayDate() {
+  const todayDateString = new Date(Date.now()).toLocaleString("pt-BR", {timeZone: "America/Sao_Paulo"})
+  return todayDateString.split(' ')[0]
 }

@@ -1,22 +1,5 @@
 import { Schema, model } from 'mongoose'
-import { User, ObjectInteraction, SpaceStats, Stats } from '../types'
-
-const ObjectInteractionSchema = new Schema<ObjectInteraction>({
-  objectId: String,
-  mapId: String,
-  count: Number
-});
-
-const StatsSchema = new Schema<Stats>({
-  steps: Number,
-  interactions: Number,
-  objectInteractions: [ObjectInteractionSchema],
-  messages: Number,
-  isOnline: Boolean,
-  lastJoined: Number,
-  lastExited: Number,
-  timeOnlineInMinutes: Number
-});
+import { User } from '../types'
 
 const UserSchema = new Schema<User>({
   gatherPlayerId: {
@@ -27,9 +10,8 @@ const UserSchema = new Schema<User>({
     type: String,
     required: true
   },
-  spaces: {
-    type: Map,
-    of: StatsSchema
+  spacesByDate: {
+    type: Schema.Types.Mixed
   }
 })
 
