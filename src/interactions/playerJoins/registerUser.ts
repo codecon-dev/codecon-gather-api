@@ -20,7 +20,7 @@ export async function registerUser(data: PlayerJoinsEventData, context: ServerCl
     const newUser = {
       gatherPlayerId: playerId,
       gatherName: playerName,
-      spaces: {}
+      spacesByDate: {}
     }
 
     const spaceStats = {
