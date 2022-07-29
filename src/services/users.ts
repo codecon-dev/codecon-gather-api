@@ -1,5 +1,5 @@
 import { User } from "../types";
-import { updateUserSpaceStat } from "../utils/spaces";
+import { getTodayDate, updateUserSpaceStat } from "../utils/spaces";
 import { wait } from "../utils/time";
 import { getTimeInMinutesSince } from "../utils/time";
 import { createOrUpdateUser, getAllUsers } from "./database";
@@ -78,6 +78,7 @@ class UserManager {
 
   private async continuouslyUpdateUsersInDatabase() {
     while (this.isKeepUpdatingUsersActive) {
+      this.updateUsersOnlineTime()
       await this.updateUsersInDatabase()
     }
   }
@@ -89,8 +90,7 @@ class UserManager {
       return
     }
 
-    const usersWithUpdatedTimeOnline = this.updateUsersOnlineTime(users)
-    const userChunksToUpdate: User[][] = this.splitUsersIntoChunks(usersWithUpdatedTimeOnline, 100)
+    const userChunksToUpdate: User[][] = this.splitUsersIntoChunks(users, 100)
 
     this.isUpdating = true
     for (let chunksIndex = 0; chunksIndex < userChunksToUpdate.length; chunksIndex++) {
@@ -102,7 +102,7 @@ class UserManager {
           console.log('[UserManager] Stopping update cycle!')
           return
         }
-        const user = usersWithUpdatedTimeOnline[usersIndex];
+        const user = users[usersIndex];
         await createOrUpdateUser(user)
       }
       console.log(`[UserManager] Updated chunk ${chunksIndex} with ${chunk.length} users`)
@@ -145,20 +145,21 @@ class UserManager {
     }
   }
 
-  private updateUsersOnlineTime(users: User[]) {
+  private updateUsersOnlineTime() {
+    const todayDate = getTodayDate()
     const now = Number(new Date(Date.now()))
     if (!this.lastOnlineTimeUpdate) {
       this.lastOnlineTimeUpdate = now
-      return users
+      return this.users
     }
     const timeDiff = now - this.lastOnlineTimeUpdate
     const timeDiffInMinutes = timeDiff / (1000 * 60)
     this.lastOnlineTimeUpdate = now
 
-    return users.reduce((users: User[], user: User) => {
+    this.users = this.users.reduce((users: User[], user: User) => {
       let updatedUser = user
-      for (const friendlySpaceId in user.spaces) {
-        if (!Object.prototype.hasOwnProperty.call(user.spaces, friendlySpaceId)) {
+      for (const friendlySpaceId in user.spacesByDate[todayDate]) {
+        if (!Object.prototype.hasOwnProperty.call(user.spacesByDate[todayDate], friendlySpaceId)) {
           continue
         }
         
@@ -167,7 +168,7 @@ class UserManager {
         if (!space.isOnline) continue
         const timeOnline = space.timeOnlineInMinutes || 0
         const updatedSpaceStats = { timeOnlineInMinutes: timeOnline + timeDiffInMinutes }
-        updatedUser = updateUserSpaceStat(user, friendlySpaceId, updatedSpaceStats)
+        updatedUser = updateUserSpaceStat(updatedUser, friendlySpaceId, updatedSpaceStats)
       }
 
       return [...users, updatedUser]
