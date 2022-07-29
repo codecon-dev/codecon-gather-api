@@ -22,8 +22,8 @@ export async function trackSteps(data: PlayerMovesEventData, context: ServerClie
     const previousPlayerPosition = previousPlayerSpacePosition[playerId]
     const userMovement = getMovement(playerNewPosition, previousPlayerPosition)
     if (userMovement !== 'Same' && userMovement !== 'None') {
-      const space = getSpace(user, friendlySpaceId)
-      const steps = space.steps
+      const spaceStats = getSpace(user, friendlySpaceId)
+      const steps = spaceStats.steps
       const updatedSpaceStats = { steps: steps ? steps + 1 : 1 }
       userManager.updateUserInMemory(updateUserSpaceStat(user, friendlySpaceId, updatedSpaceStats))
     }
