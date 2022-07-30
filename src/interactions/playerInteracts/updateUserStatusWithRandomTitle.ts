@@ -1,9 +1,9 @@
+import { Game } from "@gathertown/gather-game-client";
 import { ServerClientEventContext } from "@gathertown/gather-game-client/dist/src/public/utils";
 import axios from "axios";
-import GatherManager from "../../services/gather";
 import { PlayerInteractsEventData } from "../../types";
 
-function capitalize (str: string) {
+function capitalize(str: string) {
   return str.charAt(0).toUpperCase() + str.slice(1)
 }
 
@@ -14,10 +14,9 @@ async function getRandomTitle() {
   return `The ${capitalize(adjectives[0])} ${capitalize(noums[0])}`
 }
 
-export async function updateUserStatusWithRandomTitle(data: PlayerInteractsEventData, context: ServerClientEventContext) {
-  const { game } = GatherManager.getInstance()
+export async function updateUserStatusWithRandomTitle(data: PlayerInteractsEventData, context: ServerClientEventContext, game: Game) {
   const title = await getRandomTitle()
-  game.engine.sendAction({  
+  game.engine.sendAction({
     $case: "setTextStatus",
     setTextStatus: {
       textStatus: title,

@@ -1,4 +1,4 @@
-import GatherManager from "../services/gather";
+import { Game } from "@gathertown/gather-game-client";
 import { Position } from "../types";
 import { hasMatchingCoordinates } from "../utils/movement";
 import { getMapObjectById } from "../utils/objects";
@@ -30,9 +30,8 @@ class BossSystem {
     return BossSystem.instance
   }
 
-  
-  setBossObject(mapId: string, active: boolean) {
-    const { game } = GatherManager.getInstance()
+
+  setBossObject(mapId: string, active: boolean, game: Game) {
     const { key } = getMapObjectById(game, this.bossObjectId, mapId)
     game.engine.sendAction({
       $case: "mapSetObjects",
@@ -53,44 +52,44 @@ class BossSystem {
       },
     });
   }
-  
-  activateBossObject(mapId: string) {
+
+  activateBossObject(mapId: string, game: Game) {
     this.toggles.isBossActive = true
-    this.setBossObject(mapId, true)
+    this.setBossObject(mapId, true, game)
     setTimeout(() => {
-      this.deactivateBossObject(mapId)
+      this.deactivateBossObject(mapId, game)
     }, 5000)
   }
-  
-  deactivateBossObject(mapId: string) {
-    this.setBossObject(mapId, false)
+
+  deactivateBossObject(mapId: string, game: Game) {
+    this.setBossObject(mapId, false, game)
     this.toggles.isPlate1Active = false
     this.toggles.isPlate2Active = false
     this.toggles.isBossActive = false
   }
-  
-  setBossActivation(key: TogglesKeys, active: boolean, mapId: string) {
+
+  setBossActivation(key: TogglesKeys, active: boolean, mapId: string, game: Game) {
     this.toggles[key] = active
-  
+
     if (this.toggles.isPlate1Active && this.toggles.isPlate2Active && !this.toggles.isBossActive) {
-      this.activateBossObject(mapId)
+      this.activateBossObject(mapId, game)
       return
     }
-  
+
     if (!this.toggles.isBossActive) {
       setTimeout(() => this.toggles[key] = false, 1000)
       return
     }
-  } 
-  
-  triggerBoss(playerNewPosition: Position, mapId: string) {
+  }
+
+  triggerBoss(playerNewPosition: Position, mapId: string, game: Game) {
     if (hasMatchingCoordinates(playerNewPosition, this.plate1Location)) {
-      this.setBossActivation('isPlate1Active', true, mapId)
-    } 
-  
+      this.setBossActivation('isPlate1Active', true, mapId, game)
+    }
+
     if (hasMatchingCoordinates(playerNewPosition, this.plate2Location)) {
-      this.setBossActivation('isPlate2Active', true, mapId)
-    } 
+      this.setBossActivation('isPlate2Active', true, mapId, game)
+    }
   }
 }
 

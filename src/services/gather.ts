@@ -8,27 +8,29 @@ import { onPlayerMoves } from "../events/onPlayerMoves";
 import { onPlayerSetsEmote } from "../events/onPlayerSetsEmote";
 import { onPlayerSetsName } from "../events/onPlayerSetsName";
 import { startUsersUpdateSimulation } from "../services/simulation";
+import { getFriendlySpaceId } from "../utils/spaces";
 
 class GatherManager {
-  private static instance: GatherManager;
   private apiKey: string
   private spaceId: string
+  public friendlySpaceId: string
   public game!: Game
   public unsubscribeFromConnection!: () => void
 
-  constructor(apiKey: string, spaceId: string) {
-    this.apiKey = apiKey
+  constructor(spaceId: string) {
+    this.apiKey = process.env.GATHER_API_KEY as string
     this.spaceId = spaceId
+    this.friendlySpaceId = getFriendlySpaceId(spaceId)
   }
 
-  public static getInstance(): GatherManager {
-    if (!GatherManager.instance) {
-      const apiKey = process.env.GATHER_API_KEY as string
-      const spaceId = process.env.GATHER_SPACE_ID!.replace('/', '\\')
-      GatherManager.instance = new GatherManager(apiKey, spaceId)
-    }
+  async connectAndSubscribeToEvents() {
+    this.connect()
+    await this.subscribeToConnection()
+    this.subscribeToEvents()
+  }
 
-    return GatherManager.instance
+  getGame() {
+    return this.game
   }
 
   connect() {
@@ -43,26 +45,27 @@ class GatherManager {
     return new Promise((resolve, reject) => {
       this.unsubscribeFromConnection = this.game.subscribeToConnection((connected) => {
         if (!connected) {
-          console.log('Connection unsuccessful')
+          console.log(`[${this.friendlySpaceId}] Connection unsuccessful`)
           return reject()
         }
 
-        console.log('Connected!')
+        console.log(`[${this.friendlySpaceId}] Connected!`)
         // startUsersUpdateSimulation()
         return resolve()
       });
     })
   }
 
+
   subscribeToEvents() {
-    this.game.subscribeToEvent("playerInteracts", onPlayerInteraction);
-    this.game.subscribeToEvent("playerMoves", onPlayerMoves);
-    this.game.subscribeToEvent("playerChats", onPlayerChats);
-    this.game.subscribeToEvent("playerJoins", onPlayerJoins);
-    this.game.subscribeToEvent("playerExits", onPlayerExits);
-    this.game.subscribeToEvent("playerSetsEmoteV2", onPlayerSetsEmote);
-    this.game.subscribeToEvent("playerSetsName", onPlayerSetsName);
-    console.log('Subscribed to events!')
+    this.game.subscribeToEvent("playerInteracts", (data, context) => onPlayerInteraction(data, context, this.game));
+    this.game.subscribeToEvent("playerMoves", (data, context) => onPlayerMoves(data, context, this.game));
+    this.game.subscribeToEvent("playerChats", (data, context) => onPlayerChats(data, context, this.game));
+    this.game.subscribeToEvent("playerJoins", (data, context) => onPlayerJoins(data, context, this.game));
+    this.game.subscribeToEvent("playerExits", (data, context) => onPlayerExits(data, context, this.game));
+    this.game.subscribeToEvent("playerSetsEmoteV2", (data, context) => onPlayerSetsEmote(data, context, this.game));
+    this.game.subscribeToEvent("playerSetsName", (data, context) => onPlayerSetsName(data, context, this.game));
+    console.log(`[${this.friendlySpaceId}] Subscribed to events!`)
   }
 }
 
