@@ -4,8 +4,9 @@ import { User } from '../types'
 
 async function connectDatabase() {
   try {
+    const env = process.env.IS_RUNNING_ON_HEROKU === 'true' ? 'prod' : 'dev'
     if (connection.readyState === 0) {
-      connect(`mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGODB_PASSWORD}@${process.env.MONGODB_URL}/gather?retryWrites=true&w=majority`)
+      connect(`mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGODB_PASSWORD}@${process.env.MONGODB_URL}/gather-${env}?retryWrites=true&w=majority`)
     }
   } catch (error) {
     console.log(error)

@@ -1,11 +1,5 @@
 import { Schema, model } from 'mongoose'
-import { User, ObjectInteraction } from '../types'
-
-const ObjectInteractionSchema = new Schema<ObjectInteraction>({
-  objectId: String,
-  mapId: String,
-  count: Number
-});
+import { User } from '../types'
 
 const UserSchema = new Schema<User>({
   gatherPlayerId: {
@@ -16,37 +10,8 @@ const UserSchema = new Schema<User>({
     type: String,
     required: true
   },
-  steps: {
-    type: Number,
-    default: 0
-  },
-  interactions: {
-    type: Number,
-    default: 0
-  },
-  objectInteractions: {
-    type: [ObjectInteractionSchema],
-    default: [],
-  },
-  messages: {
-    type: Number,
-    default: 0
-  },
-  isOnline: {
-    type: Boolean,
-    default: true
-  },
-  lastJoined: {
-    type: Number,
-    default: 0,
-  },
-  lastExited: {
-    type: Number,
-    default: 0,
-  },
-  timeOnlineInMinutes: {
-    type: Number,
-    default: 0
+  spacesByDate: {
+    type: Schema.Types.Mixed
   }
 })
 
