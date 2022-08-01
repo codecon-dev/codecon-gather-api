@@ -7,7 +7,7 @@ import { onPlayerJoins } from "../events/onPlayerJoins";
 import { onPlayerMoves } from "../events/onPlayerMoves";
 import { onPlayerSetsEmote } from "../events/onPlayerSetsEmote";
 import { onPlayerSetsName } from "../events/onPlayerSetsName";
-import { startUsersUpdateSimulation } from "../services/simulation";
+// import { startUsersUpdateSimulation } from "../services/simulation";
 import { getFriendlySpaceId } from "../utils/spaces";
 
 class GatherManager {
