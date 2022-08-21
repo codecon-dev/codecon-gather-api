@@ -30,6 +30,7 @@ export type Stats = {
   lastJoined?: number,
   lastExited?: number,
   timeOnlineInMinutes?: number
+  standsVisited: string[]
 }
 
 export type SpaceStats = Record<string, Stats>
@@ -43,3 +44,9 @@ export type User = {
 }
 
 export type WiredObjectListPerKey = Record<number, WireObject>
+
+export type Stand = {
+  standName: string
+  friendlySpaceId: string
+  visitors: string[]
+}

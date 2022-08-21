@@ -28,8 +28,36 @@ npm run dev
 
 Go to `node_modules/@gathertown/gather-game-common/src/events.proto` and check `ServerClientEvent` message.  
 You might want to add this [extension](https://marketplace.visualstudio.com/items?itemName=zxh404.vscode-proto3) for syntax highlight.  
-On VSCode, select the the event name such as `MapSetObjects`, press `Ctrl+D` and find its payload.  
+On VSCode, select the event name such as `MapSetObjects`, press `Ctrl+D` and find its payload.  
 You can also `Ctrl+Click` on the payload class names to check their content. In this case, `WireObject`.
+
+### Debugging user space stats
+
+You can use the `logSpaceStatsOnUserMovement` function to log the space stats (steps, online time, etc) for a user on the current date and the current space they are located at.
+
+Usage example:
+```js
+import { logSpaceStatsOnUserMovement } from "../../utils/debug";
+//...
+
+export async function trackSteps(data: PlayerMovesEventData, context: ServerClientEventContext) {
+  try {
+    const playerId = context?.playerId!
+    const friendlySpaceId = getFriendlySpaceId(context?.spaceId)
+
+    const userManager = UserManager.getInstance()
+    const user = userManager.getUserInMemory(playerId)
+    if (!user) return
+
+    logSpaceStatsOnUserMovement(user, friendlySpaceId)
+    const playerNewPosition = getPosition(data)
+    //...
+  } catch (error) {
+    console.log(error)
+  }
+}
+```
+
 
 ## References
 
