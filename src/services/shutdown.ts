@@ -40,7 +40,6 @@ class ShutdownManager {
     await userManager.updateUsersInDatabase()
 
     console.log('[ShutdownManager] Good bye!')
-    process.exit(0)
   }
 }
 
