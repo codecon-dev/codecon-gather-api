@@ -72,7 +72,7 @@ export const stands = [
     bottomRightPosition: { x: 50, y: 23 }
   },
   {
-    name: 'seila',
+    name: 'X-Team',
     friendlyMapId: 'codecon-2022-sala-2',
     topLeftPosition: { x: 10, y: 23 },
     bottomRightPosition: { x: 21, y: 27 }
