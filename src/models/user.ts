@@ -8,7 +8,6 @@ const UserSchema = new Schema<User>({
   },
   gatherName: {
     type: String,
-    required: true
   },
   spacesByDate: {
     type: Schema.Types.Mixed
