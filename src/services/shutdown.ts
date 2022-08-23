@@ -13,13 +13,17 @@ class ShutdownManager {
   }
 
   private listenToProcessSignals() {
-    process.on('SIGINT', this.shutdown.bind(this));
-    process.on('SIGTERM', this.shutdown.bind(this));
+    process.on('SIGINT', this.runAndExit(this.shutdown.bind(this)));
+    process.on('SIGTERM', this.runAndExit(this.shutdown.bind(this)));
   }
 
-  private async shutdown(signal: string) {
+  private runAndExit(shutdown: () => Promise<void>) {
+    return () => shutdown().finally(() => process.exit(0))
+  }
+
+  private async shutdown() {
     if (this.isShuttingDown) return
-    console.log(`[ShutdownManager] Signal "${signal}" detected! Starting shutdown...`)
+    console.log(`[ShutdownManager] Signal detected! Starting shutdown...`)
     this.isShuttingDown = true
 
     console.log('[ShutdownManager] Unsubscribing from Gather WebSocket connection...')
