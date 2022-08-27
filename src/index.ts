@@ -7,7 +7,7 @@ require('dotenv').config()
 // Global object with GatherManager instances for each SpaceId
 // Useful in case you need to use a Game instance that is not
 // triggered by a Gather event (move, interact, etc).
-// For example something that is trigger by an interval or an external API.
+// For example something that is triggered by an interval or an external API.
 export let gatherManagers: Record<string, GatherManager> = {}
 
 async function start() {
@@ -23,6 +23,7 @@ async function start() {
       gatherManagers[spaceId] = gatherManager
     }))
 
+    if (process.env.IS_RUNNING_ON_HEROKU !== 'true') return
     new ShutdownManager(Object.values(gatherManagers))
   } catch (error) {
     console.log(error)

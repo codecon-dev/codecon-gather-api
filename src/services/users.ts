@@ -93,7 +93,7 @@ class UserManager {
         const user = users[usersIndex];
         await createOrUpdateUser(user)
       }
-      if(process.env.IS_RUNNING_ON_HEROKU !== 'true' ) {
+      if(process.env.IS_RUNNING_ON_HEROKU !== 'true') {
         console.log(`[UserManager] Updated chunk ${chunksIndex} with ${chunk.length} users`)
       }
       await wait(1000)
