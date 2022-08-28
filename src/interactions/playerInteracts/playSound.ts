@@ -19,6 +19,12 @@ const sounds: Record<string, string[]> = {
     'https://www.myinstants.com/media/sounds/cavaalo0.mp3',
     'https://www.myinstants.com/media/sounds/e-brincadeira-hein-rodrigo-faro.mp3',
     'https://www.myinstants.com/media/sounds/demais-faro-hq_WRnItjN.mp3',
+  ],
+  alexa: [
+    'https://soundspunos.com/uploads/files/2022-01/1641632526_1641200600_alexa_reminder.mp3'
+  ],
+  fire: [
+    'https://soundspunos.com/uploads/files/2018-12/1544510643_fire_zkyuzme_.mp3'
   ]
 }
 

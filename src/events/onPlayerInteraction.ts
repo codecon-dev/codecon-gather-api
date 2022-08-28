@@ -15,6 +15,8 @@ const actionsByObjectId: Record<string, Function> = {
   'Balloons3 - r-SrSiX2I6ZgmaKLCLmSu_fd4a8132-1da5-456c-a297-7e785df0ee38': updateUserStatusWithRandomTitle,
   'Blank - QBiYhmko0be5JCAk5QsH_cea893db-ae23-4062-8a40-f57a33d4d7cd': playSoundWithCategory('ratinho'),
   'Blank - QBiYhmko0be5JCAk5QsH_e7df7c9f-2abf-4ece-a84d-89655dd0a176': playSoundWithCategory('faro'),
+  'Blank - QBiYhmko0be5JCAk5QsH_6f56a63a-f350-4996-8c4e-3c4641c5a254': playSoundWithCategory('alexa'),
+  'Blank - QBiYhmko0be5JCAk5QsH_57c3ca26-58dc-49cf-81a3-30f338e4245e': playSoundWithCategory('fire'),
 }
 
 export function onPlayerInteraction(data: PlayerInteractsEventData, context: ServerClientEventContext, game: Game) {
