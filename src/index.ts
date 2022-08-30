@@ -1,6 +1,7 @@
 import GatherManager from "./services/gather";
 import ShutdownManager from "./services/shutdown";
 import UserManager from "./services/users";
+import BugsSystem from "./systems/bugs";
 import { getSpacesIdsFromEnv } from "./utils/spaces";
 require('dotenv').config()
 
@@ -22,7 +23,8 @@ async function start() {
       await gatherManager.connectAndSubscribeToEvents()
       gatherManagers[spaceId] = gatherManager
     }))
-
+    
+    new BugsSystem()
     new ShutdownManager(Object.values(gatherManagers))
   } catch (error) {
     console.log(error)

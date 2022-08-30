@@ -8,6 +8,7 @@ export type PlayerJoinsEventData = ServerClientEventByCase<'playerJoins'>
 export type PlayerExitsEventData = ServerClientEventByCase<'playerExits'>
 export type PlayerSetsEmoteEventData = ServerClientEventByCase<'playerSetsEmoteV2'>
 export type PlayerSetsNameData = ServerClientEventByCase<'playerSetsName'>
+export type MapSetObjectsData = ServerClientEventByCase<'mapSetObjects'>
 
 export type Position = {
   x?: number,

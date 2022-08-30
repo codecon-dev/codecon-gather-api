@@ -1,5 +1,6 @@
 import { Game } from "@gathertown/gather-game-client";
 import IsomorphicWS from "isomorphic-ws"
+import { onMapSetObjects } from "../events/onMapSetObjects";
 import { onPlayerChats } from "../events/onPlayerChats";
 import { onPlayerExits } from "../events/onPlayerExits";
 import { onPlayerInteraction } from "../events/onPlayerInteraction";
@@ -65,6 +66,7 @@ class GatherManager {
     this.game.subscribeToEvent("playerExits", (data, context) => onPlayerExits(data, context, this.game));
     this.game.subscribeToEvent("playerSetsEmoteV2", (data, context) => onPlayerSetsEmote(data, context, this.game));
     this.game.subscribeToEvent("playerSetsName", (data, context) => onPlayerSetsName(data, context, this.game));
+    this.game.subscribeToEvent("mapSetObjects", (data, context) => onMapSetObjects(data, context, this.game));
     console.log(`[${this.friendlySpaceId}] Subscribed to events!`)
   }
 }

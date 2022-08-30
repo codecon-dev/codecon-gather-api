@@ -3,6 +3,7 @@ import { ServerClientEventContext } from '@gathertown/gather-game-client/dist/sr
 import { PlayerInteractsEventData, WiredObjectListPerKey } from '../types';
 
 export function getMapObjectById(game: Game, objId: string, mapId: string) {
+  if (!game.partialMaps[mapId]) return {}
   for (const _key in game.partialMaps[mapId].objects) {
     const key = parseInt(_key);
     const obj = game.partialMaps[mapId]?.objects?.[key];
