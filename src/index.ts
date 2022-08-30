@@ -23,7 +23,6 @@ async function start() {
       gatherManagers[spaceId] = gatherManager
     }))
 
-    if (process.env.IS_RUNNING_ON_HEROKU !== 'true') return
     new ShutdownManager(Object.values(gatherManagers))
   } catch (error) {
     console.log(error)
