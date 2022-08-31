@@ -3,13 +3,14 @@ import ShutdownManager from "./services/shutdown";
 import UserManager from "./services/users";
 import BugsSystem from "./systems/bugs";
 import { getSpacesIdsFromEnv } from "./utils/spaces";
+import { GatherManagers } from './types'
 require('dotenv').config()
 
 // Global object with GatherManager instances for each SpaceId
 // Useful in case you need to use a Game instance that is not
 // triggered by a Gather event (move, interact, etc).
 // For example something that is triggered by an interval or an external API.
-export let gatherManagers: Record<string, GatherManager> = {}
+export let gatherManagers: GatherManagers = {}
 
 async function start() {
   try {

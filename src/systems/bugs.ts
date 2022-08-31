@@ -1,7 +1,8 @@
 import { Game } from "@gathertown/gather-game-client";
 import { ServerClientEventContext } from "@gathertown/gather-game-client/dist/src/GameEventContexts";
 import { gatherManagers } from "..";
-import { MapSetObjectsData } from "../types";
+import GatherManager from "../services/gather";
+import { GatherManagers, MapSetObjectsData } from "../types";
 import { getMapObjectById } from "../utils/objects";
 import { getRandomArrayValue } from "../utils/random"
 
@@ -55,6 +56,15 @@ class BugsSystem {
     return BugsSystem.instance
   }
 
+  private getRequiredMapsToLoad(bugCollections: BugCollection[]) {
+    return bugCollections.reduce((maps: string[], collection) => {
+      const bugMaps: string[] = collection.bugs.reduce((bugsMaps: string[], bug: Bug) => {
+        return bugsMaps.includes(bug.mapId) ? bugsMaps : bugsMaps.concat(bug.mapId)
+      }, [])
+      return [...new Set(maps.concat(bugMaps))]
+    }, [])
+  }
+
   loadMaps(data: MapSetObjectsData, context: ServerClientEventContext, game: Game) {
     const mapId = data.mapSetObjects.mapId
     if (!mapId) return
@@ -62,12 +72,7 @@ class BugsSystem {
     if (this.mapsLoaded[mapId]) return
     this.mapsLoaded[mapId] = true
 
-    const requiredMapsToLoad = bugCollections.reduce((maps: string[], collection) => {
-      const bugMaps: string[] = collection.bugs.reduce((bugsMaps: string[], bug: Bug) => {
-        return bugsMaps.includes(bug.mapId) ? bugsMaps : bugsMaps.concat(bug.mapId)
-      }, [])
-      return [...new Set(maps.concat(bugMaps))]
-    }, [])
+    const requiredMapsToLoad = this.getRequiredMapsToLoad(bugCollections)
 
     const hasAllMapsLoaded = requiredMapsToLoad.every(mapId => this.mapsLoaded[mapId] === true)
     if (!hasAllMapsLoaded) return
@@ -79,19 +84,31 @@ class BugsSystem {
   }
 
   initializeBugsSystem() {
-    Object.entries(gatherManagers).forEach(([ spaceId, gatherManager ]) => {
-      const game = gatherManager.game
+    this.hideAllBugs(gatherManagers, bugCollections)
+    this.showRandomBug(bugCollections)
+  }
 
-      console.log(`[${this.logLabel}] Hiding all bugs on ${spaceId}`)
-      // TODO: Make this forEach async and with time spacing so we don't hit the rate limit for map interactions
-      bugCollections.forEach(bugCollection => {
-        bugCollection.bugs.forEach(bug => {
-          if (!spaceId.includes(bug.spaceId)) return
-          this.hideBug(bug.objId, bug.mapId, game)
-        })
+  hideAllBugs(gatherManagers: GatherManagers, bugCollections: BugCollection[]) {
+    Object.entries(gatherManagers).forEach(([ spaceId, gatherManager ]) => {
+      this.hideAllBugsInSpace(bugCollections, spaceId, gatherManager.game)
+    })
+  }
+
+  hideAllBugsInSpace(bugCollections: BugCollection[], spaceId: string, game: Game) {
+    console.log(`[${this.logLabel}] Hiding all bugs on ${spaceId}`)
+    bugCollections.forEach(bugCollection => {
+      bugCollection.bugs.forEach(bug => {
+        if (!spaceId.includes(bug.spaceId)) return
+        this.hideBug(bug.objId, bug.mapId, game)
       })
     })
+  }
 
+  hideBug(objId: string, mapId: string, game: Game) {
+    this.setBugObject(objId, mapId, false, game)
+  }
+
+  showRandomBug(bugCollections: BugCollection[]) {
     bugCollections.forEach(bugCollection => {
       const bug = getRandomArrayValue(bugCollection.bugs)
       const gatherManager = gatherManagers[bug.spaceId]
@@ -100,16 +117,11 @@ class BugsSystem {
         return
       }
 
-      console.log(`[${this.logLabel}] Showing a random bug for collection ${bugCollection.name}`)
+      console.log(`[${this.logLabel}] Showing a random bug for collection "${bugCollection.name}"`)
       setTimeout(() => {
         this.showBug(bug.objId, bug.mapId, gatherManager.game)
       }, 3000)
     })
-
-  }
-
-  hideBug(objId: string, mapId: string, game: Game) {
-    this.setBugObject(objId, mapId, false, game)
   }
 
   showBug(objId: string, mapId: string, game: Game) {
