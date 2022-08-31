@@ -5,6 +5,7 @@ import GatherManager from "../services/gather";
 import { GatherManagers, MapSetObjectsData } from "../types";
 import { getMapObjectById } from "../utils/objects";
 import { getRandomArrayValue } from "../utils/random"
+import { wait } from "../utils/time";
 
 type Bug = {
   objId: string,
@@ -83,25 +84,27 @@ class BugsSystem {
     this.initializeBugsSystem()
   }
 
-  initializeBugsSystem() {
-    this.hideAllBugs(gatherManagers, bugCollections)
+  async initializeBugsSystem() {
+    await this.hideAllBugs(gatherManagers, bugCollections)
     this.showRandomBug(bugCollections)
   }
 
-  hideAllBugs(gatherManagers: GatherManagers, bugCollections: BugCollection[]) {
-    Object.entries(gatherManagers).forEach(([ spaceId, gatherManager ]) => {
-      this.hideAllBugsInSpace(bugCollections, spaceId, gatherManager.game)
-    })
+  async hideAllBugs(gatherManagers: GatherManagers, bugCollections: BugCollection[]) {
+    const managers = Object.entries(gatherManagers)
+    for await (const [ spaceId, gatherManager ] of managers) {
+      await this.hideAllBugsInSpace(bugCollections, spaceId, gatherManager.game)
+    }
   }
 
-  hideAllBugsInSpace(bugCollections: BugCollection[], spaceId: string, game: Game) {
+  async hideAllBugsInSpace(bugCollections: BugCollection[], spaceId: string, game: Game) {
     console.log(`[${this.logLabel}] Hiding all bugs on ${spaceId}`)
-    bugCollections.forEach(bugCollection => {
-      bugCollection.bugs.forEach(bug => {
+    for await (const bugCollection of bugCollections) {
+      for await (const bug of bugCollection.bugs) {
         if (!spaceId.includes(bug.spaceId)) return
         this.hideBug(bug.objId, bug.mapId, game)
-      })
-    })
+        await wait(20) // To avoid hitting the 72 actions per second rate limit
+      }
+    }
   }
 
   hideBug(objId: string, mapId: string, game: Game) {
@@ -139,9 +142,6 @@ class BugsSystem {
             type: active ? 6 : 0,
             highlighted: active ? this.bugImage : this.blankImage,
             normal: active ? this.bugImage : this.blankImage,
-            propertiesJson: JSON.stringify({
-              message: 'Bug'
-            }),
             _tags: []
           }
         }
