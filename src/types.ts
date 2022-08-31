@@ -54,3 +54,14 @@ export type Stand = {
 }
 
 export type GatherManagers = Record<string, GatherManager>
+
+export type Bug = {
+  objId: string,
+  spaceId: string,
+  mapId: string
+}
+
+export type BugCollection = {
+  name: string,
+  bugs: Bug[]
+}
