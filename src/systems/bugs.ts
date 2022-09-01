@@ -13,7 +13,8 @@ class BugsSystem {
   private mapsLoaded: Record<string, boolean> = {}
   private isInitializating = false
   private blankImage = 'https://cdn.gather.town/v0/b/gather-town-dev.appspot.com/o/objects%2Fblank.png?alt=media&token=6564fd34-433a-4e08-843a-5c4b50d6f9e5';
-  private bugImage = 'https://cdn.gather.town/storage.googleapis.com/gather-town.appspot.com/internal-dashboard/images/hZSWr066RzaCkkv8uIR-l'
+  private bugImage = 'https://cdn.gather.town/storage.googleapis.com/gather-town.appspot.com/uploads/VSqg1CcrGZHUwtaT/Riff3hKZb4qATNHcPXQErl'
+  private objIdsTriggering: string[] = []
 
   public static getInstance(): BugsSystem {
     if (!BugsSystem.instance) {
@@ -52,7 +53,7 @@ class BugsSystem {
 
   async initializeBugsSystem() {
     await this.hideAllBugs(gatherManagers, bugCollections)
-    this.showRandomBug(bugCollections)
+    this.showRandomBugForEachCollection(bugCollections)
   }
 
   async hideAllBugs(gatherManagers: GatherManagers, bugCollections: BugCollection[]) {
@@ -77,24 +78,57 @@ class BugsSystem {
     this.setBugObject(objId, mapId, false, game)
   }
 
-  showRandomBug(bugCollections: BugCollection[]) {
+  showRandomBugForEachCollection(bugCollections: BugCollection[]) {
     bugCollections.forEach(bugCollection => {
-      const bug = getRandomArrayValue(bugCollection.bugs)
-      const gatherManager = gatherManagers[bug.spaceId]
-      if (!gatherManager) {
-        console.log(`[${this.logLabel}] ERROR: GatherManager not found for ${bug.spaceId}`)
-        return
-      }
-
-      console.log(`[${this.logLabel}] Showing a random bug for collection "${bugCollection.name}"`)
-      setTimeout(() => {
-        this.showBug(bug.objId, bug.mapId, gatherManager.game)
-      }, 3000)
+      this.showBugForCollection(bugCollection)
     })
+  }
+
+  showBugForCollection(bugCollection: BugCollection) {
+    const bug = getRandomArrayValue(bugCollection.bugs)
+    const gatherManager = gatherManagers[bug.spaceId]
+    if (!gatherManager) {
+      console.log(`[${this.logLabel}] ERROR: GatherManager not found for ${bug.spaceId}`)
+      return
+    }
+
+    console.log(`[${this.logLabel}] Showing a random bug for collection "${bugCollection.name}"`)
+    setTimeout(() => {
+      this.showBug(bug.objId, bug.mapId, gatherManager.game)
+    }, 3000)
   }
 
   showBug(objId: string, mapId: string, game: Game) {
     this.setBugObject(objId, mapId, true, game)
+  }
+
+  findBugInCollectionByObjId(objId: string, bugCollection: BugCollection) {
+    return bugCollection.bugs.find(bug => bug.objId === objId)
+  }
+
+  async triggerBug(objId: string) {
+    if (this.objIdsTriggering.includes(objId)) return
+    this.objIdsTriggering = this.objIdsTriggering.concat(objId)
+
+    const bugCollection = bugCollections.find((collection) => {
+      return this.findBugInCollectionByObjId(objId, collection)
+    })
+    if (!bugCollection) return
+
+    const bug = this.findBugInCollectionByObjId(objId, bugCollection)
+    if (!bug) return
+
+    const gatherManager = gatherManagers[bug.spaceId]
+    await wait(5000)
+    this.hideBug(bug.objId, bug.mapId, gatherManager.game)
+    const collectionWithoutSameBug = {
+      ...bugCollection,
+      bugs: bugCollection.bugs.filter(bug => bug.objId !== objId)
+    }
+    this.showBugForCollection(collectionWithoutSameBug)
+
+    await wait(5000)
+    this.objIdsTriggering = this.objIdsTriggering.filter(bug => bug !== objId)
   }
 
   setBugObject(objId: string, mapId: string, active: boolean, game: Game) {
