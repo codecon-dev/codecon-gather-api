@@ -1,4 +1,4 @@
-# 📡 CodeCon-Gather API
+# 📡 CodeCon-Gather API 
 
 An API that interacts with Gather.town API and customizes the user experience on the CodeCon Tech Event!
 
