@@ -4,7 +4,6 @@ import BossSystem from "../../systems/boss";
 import { PlayerMovesEventData } from "../../types";
 import { getPosition } from "../../utils/movement";
 
-
 export async function triggerSystems(data: PlayerMovesEventData, context: ServerClientEventContext, game: Game) {
   try {
     const mapId = context.player?.map

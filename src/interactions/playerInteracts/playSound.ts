@@ -1,10 +1,7 @@
 import { Game } from "@gathertown/gather-game-client";
 import { ServerClientEventContext } from "@gathertown/gather-game-client/dist/src/public/utils";
 import { PlayerInteractsEventData } from "../../types";
-
-function getRandomArrayValue(array: any[]) {
-  return array[Math.floor(Math.random()*array.length)]
-}
+import { getRandomArrayValue } from "../../utils/random";
 
 const sounds: Record<string, string[]> = {
   ratinho: [

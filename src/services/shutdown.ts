@@ -22,6 +22,8 @@ class ShutdownManager {
   }
 
   private async shutdown() {
+    if (process.env.IS_RUNNING_ON_HEROKU !== 'true') return
+    
     if (this.isShuttingDown) return
     console.log(`[ShutdownManager] Signal detected! Starting shutdown...`)
     this.isShuttingDown = true

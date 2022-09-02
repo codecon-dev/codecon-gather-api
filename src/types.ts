@@ -1,5 +1,6 @@
 import { SpriteDirectionEnum_ENUM, WireObject } from "@gathertown/gather-game-client";
 import { ServerClientEventByCase } from "@gathertown/gather-game-client/dist/src/public/utils";
+import GatherManager from "./services/gather";
 
 export type PlayerMovesEventData = ServerClientEventByCase<'playerMoves'>
 export type PlayerInteractsEventData = ServerClientEventByCase<'playerInteracts'>
@@ -8,6 +9,7 @@ export type PlayerJoinsEventData = ServerClientEventByCase<'playerJoins'>
 export type PlayerExitsEventData = ServerClientEventByCase<'playerExits'>
 export type PlayerSetsEmoteEventData = ServerClientEventByCase<'playerSetsEmoteV2'>
 export type PlayerSetsNameData = ServerClientEventByCase<'playerSetsName'>
+export type MapSetObjectsData = ServerClientEventByCase<'mapSetObjects'>
 
 export type Position = {
   x?: number,
@@ -49,4 +51,17 @@ export type Stand = {
   standName: string
   friendlySpaceId: string
   visitors: string[]
+}
+
+export type GatherManagers = Record<string, GatherManager>
+
+export type Bug = {
+  objId: string,
+  spaceId: string,
+  mapId: string
+}
+
+export type BugCollection = {
+  name: string,
+  bugs: Bug[]
 }

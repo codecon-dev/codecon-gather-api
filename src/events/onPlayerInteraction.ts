@@ -1,9 +1,12 @@
 import { Game } from "@gathertown/gather-game-client";
 import { ServerClientEventContext } from "@gathertown/gather-game-client/dist/src/public/utils";
+import { bugCollections } from "../data/bugs";
 import { playSound } from "../interactions/playerInteracts/playSound";
 import { trackInteractions } from "../interactions/playerInteracts/trackInteractions"
 import { updateUserStatusWithRandomTitle } from "../interactions/playerInteracts/updateUserStatusWithRandomTitle";
+import BugsSystem from "../systems/bugs";
 import { PlayerInteractsEventData } from "../types"
+import { getAllBugsObjIds } from "../utils/bugs";
 
 function playSoundWithCategory(category: string) {
   return (data: PlayerInteractsEventData, context: ServerClientEventContext, game: Game) => {
@@ -24,6 +27,13 @@ export function onPlayerInteraction(data: PlayerInteractsEventData, context: Ser
   console.log(`${playerName} interacted with objId: ${interactedObjId}`)
 
   trackInteractions(data, context)
+
+  const bugObjIds = getAllBugsObjIds(bugCollections)
+  if (bugObjIds.includes(interactedObjId)) {
+    const bugSystemInstance = BugsSystem.getInstance()
+    bugSystemInstance.triggerBug(interactedObjId)
+    return
+  }
 
   const action = actionsByObjectId[interactedObjId]
   if (!action) return
