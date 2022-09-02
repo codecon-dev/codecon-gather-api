@@ -11,4 +11,4 @@ jobs:
     - name: Workflow Webhook Action
       uses: distributhor/workflow-webhook@v2.0.4
       with:
-        webhook_url: ${{secrets.QODDY_DEPLOY_WEBHOOK}}
+        webhook_url: ${{ secrets.QODDI_DEPLOY_WEBHOOK }}
