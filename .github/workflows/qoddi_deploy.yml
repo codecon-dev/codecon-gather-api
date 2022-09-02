@@ -1,0 +1,14 @@
+name: Qoddi Deploy
+
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  qoddi_deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Workflow Webhook Action
+      uses: distributhor/workflow-webhook@v2.0.4
+      with:
+        url: "${{QODDY_DEPLOY_WEBHOOK}}"
