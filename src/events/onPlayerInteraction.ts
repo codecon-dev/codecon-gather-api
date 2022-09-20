@@ -7,6 +7,7 @@ import { updateUserStatusWithRandomTitle } from "../interactions/playerInteracts
 import BugsSystem from "../systems/bugs";
 import { PlayerInteractsEventData } from "../types"
 import { getAllBugsObjIds } from "../utils/bugs";
+// import { logObjectInteraction } from "../utils/debug";
 
 function playSoundWithCategory(category: string) {
   return (data: PlayerInteractsEventData, context: ServerClientEventContext, game: Game) => {
@@ -21,10 +22,8 @@ const actionsByObjectId: Record<string, Function> = {
 }
 
 export function onPlayerInteraction(data: PlayerInteractsEventData, context: ServerClientEventContext, game: Game) {
-  const player = context?.player
-  const playerName = player?.name
   const interactedObjId = data.playerInteracts.objId
-  console.log(`${playerName} interacted with objId: ${interactedObjId}`)
+  // logObjectInteraction(data, context)
 
   trackInteractions(data, context)
 
