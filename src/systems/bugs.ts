@@ -69,7 +69,7 @@ class BugsSystem {
     console.log(`[${this.logLabel}] Hiding all bugs on ${spaceId}`)
     for await (const bugCollection of bugCollections) {
       for await (const bug of bugCollection.bugs) {
-        if (!spaceId.includes(bug.spaceId)) return
+        if (!spaceId.includes(bug.spaceId)) continue
         this.hideBug(bug.objId, bug.mapId, game)
         await wait(20) // To avoid hitting the 72 actions per second rate limit
       }
