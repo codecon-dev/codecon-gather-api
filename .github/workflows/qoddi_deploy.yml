@@ -2,7 +2,7 @@ name: Qoddi Deploy
 
 on:
   push:
-    branches: [ main ]
+    branches: [ master ]
 
 jobs:
   qoddi_deploy:
