@@ -13,16 +13,9 @@ class BugsSystem {
   private mapsLoaded: Record<string, boolean> = {}
   private isInitializating = false
   private blankImage = 'https://cdn.gather.town/v0/b/gather-town-dev.appspot.com/o/objects%2Fblank.png?alt=media&token=6564fd34-433a-4e08-843a-5c4b50d6f9e5';
-  private bugImage = 'https://cdn.gather.town/storage.googleapis.com/gather-town.appspot.com/uploads/VSqg1CcrGZHUwtaT/Riff3hKZb4qATNHcPXQErl'
+  private bugImage = 'https://cdn.gather.town/storage.googleapis.com/gather-town.appspot.com/uploads/VSqg1CcrGZHUwtaT/0Hg0aPGehA8tjIKLxWpuVF'
   private objIdsTriggering: string[] = []
-  private activePreviewMessages = [
-    'bug encontrado na linha 23',
-    'undefined',
-    'console.log(">>> AQUI")', 
-    'debugger ligado', 
-    'unhandled promise rejection', 
-    '400 Bad Request'
-  ]
+  private activePreviewMessages = ['...']
 
 
   public static getInstance(): BugsSystem {
@@ -149,7 +142,7 @@ class BugsSystem {
         objects: {
           [key as number]: {
             type: active ? 6 : 0,
-            previewMessage: active ? getRandomArrayValue(this.activePreviewMessages) : '',
+            previewMessage: active ? getRandomArrayValue(this.activePreviewMessages) : '...',
             highlighted: active ? this.bugImage : this.blankImage,
             normal: active ? this.bugImage : this.blankImage,
             _tags: []
