@@ -89,4 +89,59 @@ export const stands = [
     topLeftPosition: { x: 46, y: 23 },
     bottomRightPosition: { x: 57, y: 28 }
   },
+  // Feira \/
+  {
+    name: 'Locaweb',
+    friendlyMapId: 'codecon-2022-sala-3',
+    topLeftPosition: { x: 4, y: 49 },
+    bottomRightPosition: { x: 11, y: 54 }
+  },
+  {
+    name: 'Americanas',
+    friendlyMapId: 'codecon-2022-sala-3',
+    topLeftPosition: { x: 11, y: 44 },
+    bottomRightPosition: { x: 17, y: 48 }
+  },
+  {
+    name: 'Hurb',
+    friendlyMapId: 'codecon-2022-sala-3',
+    topLeftPosition: { x: 16, y: 52 },
+    bottomRightPosition: { x: 22, y: 56 }
+  },
+  {
+    name: 'Globo',
+    friendlyMapId: 'codecon-2022-sala-3',
+    topLeftPosition: { x: 20, y: 44 },
+    bottomRightPosition: { x: 26, y: 48 }
+  },
+  {
+    name: 'LuizaLabs',
+    friendlyMapId: 'codecon-2022-sala-3',
+    topLeftPosition: { x: 37, y: 49 },
+    bottomRightPosition: { x: 43, y: 46 }
+  },
+  {
+    name: 'Sankhya',
+    friendlyMapId: 'codecon-2022-sala-3',
+    topLeftPosition: { x: 40, y: 51 },
+    bottomRightPosition: { x: 46, y: 55 }
+  },
+  {
+    name: 'TOTVS',
+    friendlyMapId: 'codecon-2022-sala-3',
+    topLeftPosition: { x: 46, y: 45 },
+    bottomRightPosition: { x: 52, y: 49 }
+  },
+  {
+    name: 'Zitrus',
+    friendlyMapId: 'codecon-2022-sala-3',
+    topLeftPosition: { x: 53, y: 52 },
+    bottomRightPosition: { x: 59, y: 55 }
+  },
+  {
+    name: 'Zé',
+    friendlyMapId: 'codecon-2022-sala-3',
+    topLeftPosition: { x: 54, y: 44 },
+    bottomRightPosition: { x: 59, y: 47 }
+  },
 ]
