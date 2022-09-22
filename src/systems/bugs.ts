@@ -121,7 +121,7 @@ class BugsSystem {
     if (!bug) return
 
     const gatherManager = gatherManagers[bug.spaceId]
-    await wait(5000)
+    await wait(15000)
     this.hideBug(bug.objId, bug.mapId, gatherManager.game)
     const collectionWithoutSameBug = {
       ...bugCollection,
