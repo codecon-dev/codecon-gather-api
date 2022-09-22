@@ -6,6 +6,7 @@ async function connectDatabase() {
   try {
     const env = process.env.IS_RUNNING_ON_HEROKU === 'true' ? 'prod' : 'dev'
     if (connection.readyState === 0) {
+      console.log(`[MONGOOSE] Connecting to @${process.env.MONGODB_URL}/gather-${env} database`)
       connect(`mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGODB_PASSWORD}@${process.env.MONGODB_URL}/gather-${env}?retryWrites=true&w=majority`)
     }
   } catch (error) {
