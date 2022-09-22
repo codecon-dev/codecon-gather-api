@@ -85,12 +85,13 @@ class UserManager {
       return
     }
 
-    const userChunksToUpdate: User[][] = this.splitUsersIntoChunks(users, 80)
+    const chunkSize = 70
+    const userChunksToUpdate: User[][] = this.splitUsersIntoChunks(users, chunkSize)
     this.isUpdating = true
     for (let chunksIndex = 0; chunksIndex < userChunksToUpdate.length; chunksIndex++) {
       const chunk = userChunksToUpdate[chunksIndex]
       for (let usersIndex = 0; usersIndex < chunk.length; usersIndex++) {
-        const user = users[usersIndex];
+        const user = users[usersIndex + (chunkSize * chunksIndex)];
         await createOrUpdateUser(user)
       }
       if(process.env.IS_RUNNING_ON_HEROKU !== 'true') {
