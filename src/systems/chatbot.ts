@@ -17,15 +17,17 @@ class ChatBotSystem {
   }
 
   public toggleReplying(game: Game) {
-    if (!this.isReplying) {
+    this.isReplying = !this.isReplying;
+
+    if (this.isReplying) {
+      game.setActivelySpeaking(true)
       game.move(4, false); // Start dancing
     }
 
-    if (this.isReplying) {
+    if (!this.isReplying) {
+      game.setActivelySpeaking(false)
       game.move(3, true); // Stop dancing
     }
-
-    this.isReplying = !this.isReplying;
   }
 
   public static getInstance(): ChatBotSystem {
