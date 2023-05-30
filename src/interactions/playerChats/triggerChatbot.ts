@@ -29,7 +29,7 @@ export async function triggerChatbot(data: PlayerChatsEventData, context: Server
 
     chatBot.toggleReplying(game)
     const aiManager = AIManager.getInstance();
-    const reply = await aiManager.getAIReply(command);
+    const reply = await aiManager.getAIReply(command, chatBot.systemMessage, chatBot.fallbackMessage);
     chatBot.replyMessage(chatRecipient, reply, game, mapId)
     chatBot.toggleReplying(game)
 

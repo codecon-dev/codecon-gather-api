@@ -1,9 +1,6 @@
 import { Game } from "@gathertown/gather-game-client";
 import { Configuration, OpenAIApi } from "openai";
 
-const systemMessage = "Você é um chatbot do evento Codecon de 2023.";
-const fallbackMessage = "BIP BOP - Deu um erro em mim, desculpa :(";
-
 class AIManager {
   private static instance: AIManager
   private apiKey: string
@@ -25,7 +22,7 @@ class AIManager {
     return AIManager.instance
   }
 
-  async getAIReply(message: string) {
+  async getAIReply(message: string, systemMessage: string, fallbackMessage: string) {
     try {
       const res = await this.openai.createChatCompletion({
         model: "gpt-3.5-turbo",
