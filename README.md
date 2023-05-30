@@ -1,4 +1,4 @@
-# 📡 CodeCon-Gather API 
+# 📡 CodeCon-Gather API
 
 An API that interacts with Gather.town API and customizes the user experience on the CodeCon Tech Event!
 
@@ -36,6 +36,7 @@ You can also `Ctrl+Click` on the payload class names to check their content. In 
 You can use the `logSpaceStatsOnUserMovement` function to log the space stats (steps, online time, etc) for a user on the current date and the current space they are located at.
 
 Usage example:
+
 ```js
 import { logSpaceStatsOnUserMovement } from "../../utils/debug";
 //...
@@ -58,9 +59,9 @@ export async function trackSteps(data: PlayerMovesEventData, context: ServerClie
 }
 ```
 
-
 ## References
 
+- [Gather Game Client Docs](http://gather-game-client-docs.s3-website-us-west-2.amazonaws.com/)
 - [Gather WebSocket API Documentation](https://gathertown.notion.site/Gather-Websocket-API-bf2d5d4526db412590c3579c36141063)
 - [Gather HTTP API Documentation](https://www.notion.so/Gather-HTTP-API-3bbf6c59325f40aca7ef5ce14c677444)
 - [The Forest API Interaction Example](https://github.com/gathertown/the-forest)

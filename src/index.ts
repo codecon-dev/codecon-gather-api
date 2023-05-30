@@ -4,6 +4,8 @@ import UserManager from "./services/users";
 import BugsSystem from "./systems/bugs";
 import { getSpacesIdsFromEnv } from "./utils/spaces";
 import { GatherManagers } from './types'
+import AIManager from "./services/ai";
+import ChatBotSystem from "./systems/chatbot";
 require('dotenv').config()
 
 // Global object with GatherManager instances for each SpaceId
@@ -24,8 +26,10 @@ async function start() {
       await gatherManager.connectAndSubscribeToEvents()
       gatherManagers[spaceId] = gatherManager
     }))
-    
+
     new BugsSystem()
+    new AIManager()
+    new ChatBotSystem()
     new ShutdownManager(Object.values(gatherManagers))
   } catch (error) {
     console.log(error)
