@@ -7,6 +7,8 @@ import { updateUserStatusWithRandomTitle } from "../interactions/playerInteracts
 import BugsSystem from "../systems/bugs";
 import { PlayerInteractsEventData } from "../types"
 import { getAllBugsObjIds } from "../utils/bugs";
+import { setObject, setObjectInteractionText } from "../utils/objects";
+import { logObjectInteraction } from "../utils/debug";
 // import { logObjectInteraction } from "../utils/debug";
 
 function playSoundWithCategory(category: string) {
@@ -23,7 +25,16 @@ const actionsByObjectId: Record<string, Function> = {
 
 export function onPlayerInteraction(data: PlayerInteractsEventData, context: ServerClientEventContext, game: Game) {
   const interactedObjId = data.playerInteracts.objId
-  // logObjectInteraction(data, context)
+
+
+  // Touch objects to debug and change them
+  if (context.player?.name === 'Mark') {  // Change this to your character name
+    logObjectInteraction(data, context) // Find out the objId of an object
+    // setObject(data, context, game, {
+    //   // type: 5, // Interactable only
+    //
+    // })
+  }
 
   trackInteractions(data, context)
 

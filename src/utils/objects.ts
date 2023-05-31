@@ -1,4 +1,4 @@
-import { Game } from '@gathertown/gather-game-client';
+import { Game, WireObject } from '@gathertown/gather-game-client';
 import { ServerClientEventContext } from '@gathertown/gather-game-client/dist/src/GameEventContexts';
 import { PlayerInteractsEventData, WiredObjectListPerKey } from '../types';
 
@@ -48,7 +48,43 @@ export function setObjectAsExtension(data: PlayerInteractsEventData, context: Se
       mapId,
       objects: {
         [key as number]: {
-          type: 5,         
+          type: 5,
+          _tags: []
+        }
+      }
+    },
+  });
+}
+
+export function setObjectInteractionText(data: PlayerInteractsEventData, context: ServerClientEventContext, game: Game, text: string) {
+  const mapId = context?.player?.map as string
+  const interactedObjId = data.playerInteracts.objId
+  const { key } = getMapObjectById(game, interactedObjId, mapId)
+  game.engine.sendAction({
+    $case: "mapSetObjects",
+    mapSetObjects: {
+      mapId,
+      objects: {
+        [key as number]: {
+          previewMessage: text,
+          _tags: []
+        }
+      }
+    },
+  });
+}
+
+export function setObject(data: PlayerInteractsEventData, context: ServerClientEventContext, game: Game, object: Partial<WireObject>) {
+  const mapId = context?.player?.map as string
+  const interactedObjId = data.playerInteracts.objId
+  const { key } = getMapObjectById(game, interactedObjId, mapId)
+  game.engine.sendAction({
+    $case: "mapSetObjects",
+    mapSetObjects: {
+      mapId,
+      objects: {
+        [key as number]: {
+          ...object,
           _tags: []
         }
       }

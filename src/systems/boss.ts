@@ -12,6 +12,7 @@ class BossSystem {
     isPlate2Active: false,
     isBossActive: false
   }
+  // TODO: Check spaceId too
   private plate1Location = { x: 18, y: 3 }
   private plate2Location = { x: 21, y: 3 }
   private bossObjectId = 'BarrelLitMetal - Nc5jVuh8lyMUbpZlCZVTa_05ccfa05-eac0-4b60-b0b9-924ad5076f3d'
