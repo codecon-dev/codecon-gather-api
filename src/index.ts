@@ -6,6 +6,7 @@ import { getSpacesIdsFromEnv } from "./utils/spaces";
 import { GatherManagers } from './types'
 import AIManager from "./services/ai";
 import ChatBotSystem from "./systems/chatbot";
+import CoopSystem from "./systems/coop";
 require('dotenv').config()
 
 // Global object with GatherManager instances for each SpaceId
@@ -27,6 +28,7 @@ async function start() {
       gatherManagers[spaceId] = gatherManager
     }))
 
+    new CoopSystem()
     new BugsSystem()
     new AIManager()
     new ChatBotSystem()

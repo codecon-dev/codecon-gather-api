@@ -1,9 +1,7 @@
-import { Game } from "@gathertown/gather-game-client";
-import { Position } from "../types";
+import { Game, Player } from "@gathertown/gather-game-client";
 import { hasMatchingCoordinates } from "../utils/movement";
 import { getMapObjectById } from "../utils/objects";
-
-type TogglesKeys = 'isPlate1Active' | 'isPlate2Active' | 'isChestActive'
+import { gatherManagers } from "..";
 
 class CoopSystem {
   private static instance: CoopSystem;
@@ -12,7 +10,7 @@ class CoopSystem {
     isPlate2Active: false,
     isChestActive: false
   }
-  // TODO: Check spaceId too
+  private spaceId = 'cfTnBsETAY2ODiMS/Codecon 2023 - Atividades'
   private mapId = 'UMRC-_nAY2kcoptLFmdTD'
   private plate1Location = { x: 41, y: 20 }
   private plate2Location = { x: 41, y: 24 }
@@ -22,6 +20,31 @@ class CoopSystem {
 
 
   constructor() {
+    console.log(`[COOP SYSTEM] Starting coop system`)
+    const gatherManager = gatherManagers[this.spaceId]
+    if (!gatherManager) return
+
+    const game = gatherManager.getGame()
+    setInterval(() => {
+      const players = Object.values(game.players)
+      const playerOnPlate1 = players.find((player: Player) => {
+        return hasMatchingCoordinates(player, this.plate1Location)
+      })
+      const playerOnPlate2 = players.find((player: Player) => {
+        return hasMatchingCoordinates(player, this.plate2Location)
+      })
+      if (playerOnPlate1 && playerOnPlate2 && !this.toggles.isChestActive) {
+        console.log(`[COOP SYSTEM] All players are on the plates`)
+        this.activateChestObject(this.mapId, game)
+        return
+      }
+
+      if ((!playerOnPlate1 || !playerOnPlate2) && this.toggles.isChestActive) {
+        console.log(`[COOP SYSTEM] At least one of the plates is now empty`)
+        this.deactivateChestObject(this.mapId, game)
+        return
+      }
+    }, 500)
   }
 
   public static getInstance(): CoopSystem {
@@ -31,7 +54,6 @@ class CoopSystem {
 
     return CoopSystem.instance
   }
-
 
   setChestObject(mapId: string, active: boolean, game: Game) {
     const { key } = getMapObjectById(game, this.chestObjectId, mapId)
@@ -56,52 +78,13 @@ class CoopSystem {
   }
 
   activateChestObject(mapId: string, game: Game) {
-    if (mapId !== this.mapId) return
     this.toggles.isChestActive = true
     this.setChestObject(mapId, true, game)
-    setTimeout(() => {
-      this.deactivateChestObject(mapId, game)
-    }, 5000)
   }
 
   deactivateChestObject(mapId: string, game: Game) {
-    if (mapId !== this.mapId) return
     this.setChestObject(mapId, false, game)
-    this.toggles.isPlate1Active = false
-    this.toggles.isPlate2Active = false
     this.toggles.isChestActive = false
-  }
-
-  setChestActivation(key: TogglesKeys, active: boolean, mapId: string, game: Game) {
-    if (mapId !== this.mapId) return
-    this.toggles[key] = active
-
-    if (this.toggles.isPlate1Active && this.toggles.isPlate2Active && !this.toggles.isChestActive) {
-      console.log(`[COOP SYSTEM] Activating chest`)
-      this.activateChestObject(mapId, game)
-      return
-    }
-
-    if (!this.toggles.isChestActive) {
-      setTimeout(() => {
-        console.log(`[COOP SYSTEM] Deactivating chest`)
-        this.toggles[key] = false
-      }, 5000)
-      return
-    }
-  }
-
-  triggerChest(playerNewPosition: Position, mapId: string, game: Game) {
-    if (mapId !== this.mapId) return
-    if (hasMatchingCoordinates(playerNewPosition, this.plate1Location)) {
-      console.log(`[COOP SYSTEM] Plate 1 activated`)
-      this.setChestActivation('isPlate1Active', true, mapId, game)
-    }
-
-    if (hasMatchingCoordinates(playerNewPosition, this.plate2Location)) {
-      console.log(`[COOP SYSTEM] Plate 2 activated`)
-      this.setChestActivation('isPlate2Active', true, mapId, game)
-    }
   }
 }
 
