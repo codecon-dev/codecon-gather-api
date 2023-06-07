@@ -24,12 +24,25 @@ class AIManager {
 
   async getAIReply(message: string, systemMessage: string, fallbackMessage: string) {
     try {
+      const date = new Date();
+      const time = date.toLocaleTimeString("pt-BR", {
+        hour: "numeric",
+        minute: "numeric",
+      });
+      const day = date.toLocaleDateString("pt-BR", { weekday: "long" });
+      const fullDate = date.toLocaleDateString("pt-BR", {
+        month: "long",
+        day: "numeric",
+        year: "numeric",
+      });
+      const fullDateAndTime = `Hoje é: ${day}, ${fullDate} ás ${time}\n`;
+
       const res = await this.openai.createChatCompletion({
         model: "gpt-3.5-turbo",
         messages: [
           {
             role: "system",
-            content: systemMessage,
+            content: fullDateAndTime + systemMessage,
           },
           { role: "user", content: message },
         ],
