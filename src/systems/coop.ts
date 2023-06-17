@@ -14,9 +14,9 @@ class CoopSystem {
   private mapId = 'UMRC-_nAY2kcoptLFmdTD'
   private plate1Location = { x: 41, y: 20 }
   private plate2Location = { x: 41, y: 24 }
-  private chestObjectId = 'TreasureChestClosed - rh35enYGoIjzE5wEfWAFL_2c1f045e-c237-4a56-b83c-60ab1fa5f1c7'
+  private chestObjectId = 't9nG37IYkfxSiSGD4WJv_b85237ce-3e52-4afb-a7a6-2ca80c57126b'
   private blankImage = 'https://cdn.gather.town/v0/b/gather-town-dev.appspot.com/o/objects%2Fblank.png?alt=media&token=6564fd34-433a-4e08-843a-5c4b50d6f9e5';
-  private chestImage = 'https://cdn.gather.town/storage.googleapis.com/gather-town.appspot.com/internal-dashboard/images/onUu0ikT0JkdF5W8_T3mQ'
+  private chestImage = 'https://cdn.gather.town/storage.googleapis.com/gather-town.appspot.com/uploads/cfTnBsETAY2ODiMS/bZN0DISPr1shn5bPnzDJbB'
 
 
   constructor() {
@@ -63,13 +63,14 @@ class CoopSystem {
         mapId,
         objects: {
           [key as number]: {
-            type: active ? 6 : 0,
-            previewMessage: 'Press X to challenge the chest',
+            type: active ? 1 : 0,
+            previewMessage: 'Abrir [x]',
             highlighted: active ? this.chestImage : this.blankImage,
             normal: active ? this.chestImage : this.blankImage,
             propertiesJson: JSON.stringify({
-              message: 'Grr'
+              url: process.env.COOP_CHEST_URL,
             }),
+            distThreshold: 1,
             _tags: []
           }
         }
