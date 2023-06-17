@@ -29,4 +29,3 @@ module.exports = {
     jsdoc: { mode: 'typescript' }
   }
 }
-//  @typescript-eslint/eslint-plugin @typescript-eslint/parser eslint eslint-config-standard eslint-config-standard-jsdoc eslint-plugin-i
