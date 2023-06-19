@@ -5,125 +5,111 @@ export const bugCollections: BugCollection[] = [
     name: "01",
     bugs: [
       {
-        "objId": "yjnEwN1AWsjf0ZIgF03s_1815dbbd-3ea6-4919-b8b8-8391bd7025ec",
-        "spaceId": "VSqg1CcrGZHUwtaT/Codecon-2022",
-        "mapId": "qS4c3TKl_IR7fa01chmRL"
+        "objId": "SfjpDUvmojzkWg_z0xoq_d7efafe7-f503-4bce-bce1-2cf209e101f6",
+        "spaceId": "6aaOlXvif1ho61ny/Codecon 2023 - Sala 2",
+        "mapId": "nbMiyQKgOwNSJSkRz2Vu2"
       },
       {
-        "objId": "cOjmryPf-m-BwgxbIYgG_25c7affb-11b4-45a4-988f-1845b2fa0b1d",
-        "spaceId": "VSqg1CcrGZHUwtaT/Codecon-2022",
-        "mapId": "escadas"
+        "objId": "SfjpDUvmojzkWg_z0xoq_ffc62ccb-a335-4980-bbe1-4acacc830649",
+        "spaceId": "6aaOlXvif1ho61ny/Codecon 2023 - Sala 2",
+        "mapId": "vyNBTKMPDJ-kacuP8PVhX"
       },
       {
-        "objId": "PM8YB05PY28uZWwm6JgCh_37a163c6-054e-4995-bdb5-add5934acb34",
-        "spaceId": "SSoqWgxuuoJPlXM7/codecon-2022-atividades",
-        "mapId": "NoeTPW4_NFHdXoOkjweXa"
+        "objId": "btzJqy3TM6eC5AeQqXy53_9aaea497-fb68-4605-a9d9-63d0fc6ab03e",
+        "spaceId": "5MDPU9ttxlh5XNHb/Codecon 2023",
+        "mapId": "blank"
       },
       {
-        "objId": "PM8YB05PY28uZWwm6JgCh_aab7e23b-30c3-47e2-9f22-55374782b3fb",
-        "spaceId": "SSoqWgxuuoJPlXM7/codecon-2022-atividades",
-        "mapId": "jSQVyzegXY0U9XBaxR--7"
+        "objId": "btzJqy3TM6eC5AeQqXy53_405835a4-1305-4728-b256-1492bb69a387",
+        "spaceId": "5MDPU9ttxlh5XNHb/Codecon 2023",
+        "mapId": "blank"
       },
       {
-        "objId": "vTOHcWM4Uba3spuFWLV-b_b94aba5d-6a10-47d2-997c-375bf96d219e",
-        "spaceId": "DfVMRgRjpjJSoK5y/codecon-2022-sala-1",
-        "mapId": "Gzffv238NzvOqkbm9NaVy"
+        "objId": "gck8zd0TbgEr_cVm9pQ__463ba153-b56d-4c53-a5f6-395a2b245bd6",
+        "spaceId": "5MDPU9ttxlh5XNHb/Codecon 2023",
+        "mapId": "blank"
       },
       {
-        "objId": "RLS6Ac5UDJ0wTkXvthX0_4ef4f6a4-0607-4750-ba8a-16f564d9c4ec",
-        "spaceId": "aqQVlXTpX2ISp0ci/codecon-2022-sala-2",
-        "mapId": "sWap7b_BAuXHJIKzCoNgx"
+        "objId": "FhPAlrGNGCQEp4Bg-d9r_b353ce0a-1032-46bd-90b6-53bc78208903",
+        "spaceId": "mSYBlINcvt7Oh0Zx/Codecon 2023 - Sala 1",
+        "mapId": "4yyYRlE5OaiWrlu_Dwh3N"
       },
       {
-        "objId": "a30sTBCOk2ECSJlzUymF_4fa6dab6-b623-4bce-844e-468eff06b3de",
-        "spaceId": "ZXHxMgrgOseuus8N/codecon-2022-sala-3",
-        "mapId": "cV2hK1iJ2d_o0WVotlf20"
+        "objId": "5GGiB9UdqMMYrckMYuiz_ef9287b2-71d2-473d-8f29-3d466e4e94e9",
+        "spaceId": "mSYBlINcvt7Oh0Zx/Codecon 2023 - Sala 1",
+        "mapId": "Dv9iSDD_Gf-gsqshIKzib"
       },
       {
-        "objId": "ufJEiBGWUSeEGTKAUTdYZ_ebbaf671-6ff5-40d1-92ac-2e74f623a38d",
-        "spaceId": "ZXHxMgrgOseuus8N/codecon-2022-sala-3",
-        "mapId": "HMF3qeHREGqZYlBkwKaMy"
+        "objId": "FhPAlrGNGCQEp4Bg-d9r_9de85b86-13ca-46c0-af10-1645e5538172",
+        "spaceId": "mSYBlINcvt7Oh0Zx/Codecon 2023 - Sala 1",
+        "mapId": "ymh4pes-tEN_8FrY0v_ME"
       },
+      {
+        "objId": "5GGiB9UdqMMYrckMYuiz_5a301f84-f580-433d-b30b-f374c23a1b82",
+        "spaceId": "mSYBlINcvt7Oh0Zx/Codecon 2023 - Sala 1",
+        "mapId": "yr6sKuZdg-Ea4hfnhDTv7"
+      },
+      {
+        "objId": "9I3fYZaDvaFXXyHePjQZ_e27e64f9-48ca-49bd-a834-1e3060994691",
+        "spaceId": "cfTnBsETAY2ODiMS/Codecon 2023 - Atividades",
+        "mapId": "blank"
+      },
+   
     ]
   },
   {
     name: "02",
     bugs: [
       {
-        "objId": "386-wnRwEykSwk9v2XlU_a49a12c0-e78f-40d2-a7dc-c10a2b2ce07f",
-        "spaceId": "VSqg1CcrGZHUwtaT/Codecon-2022",
-        "mapId": "b2h27gMYywH5rGahxRxl3"
+        "objId": "9I3fYZaDvaFXXyHePjQZ_40c431bf-898e-450a-864d-d26bcd0caf52",
+        "spaceId": "cfTnBsETAY2ODiMS/Codecon 2023 - Atividades",
+        "mapId": "blank"
       },
       {
-        "objId": "PM8YB05PY28uZWwm6JgCh_343eaeb5-b616-49db-9f27-875ab3018a6f",
-        "spaceId": "SSoqWgxuuoJPlXM7/codecon-2022-atividades",
-        "mapId": "NoeTPW4_NFHdXoOkjweXa"
+        "objId": "GX3OZZOHYgukhFzhJj489_31f683a2-e2b4-4572-9a4f-60709940190b",
+        "spaceId": "cfTnBsETAY2ODiMS/Codecon 2023 - Atividades",
+        "mapId": "UMRC-_nAY2kcoptLFmdTD"
       },
       {
-        "objId": "9PUhPOceIa2nq6CZIyeqn_2807612d-e1e9-42af-87e6-d0fff9513bcf",
-        "spaceId": "SSoqWgxuuoJPlXM7/codecon-2022-atividades",
-        "mapId": "jSQVyzegXY0U9XBaxR--7"
+        "objId": "r4blrSFPt1Ue7gMiLgxRO_9025f48c-71f9-49a7-b1a5-0b9815db2d94",
+        "spaceId": "cfTnBsETAY2ODiMS/Codecon 2023 - Atividades",
+        "mapId": "57R_Px0vsIlF5isObTwf1"
       },
       {
-        "objId": "vTOHcWM4Uba3spuFWLV-b_05cf72da-7a37-4fe7-beb5-c481319ee7ab",
-        "spaceId": "DfVMRgRjpjJSoK5y/codecon-2022-sala-1",
-        "mapId": "dwcUtMr8sOht3XI1VvbAe"
+        "objId": "TZxjiRxuB3ZrtyJz3QXmp_1082b757-7b39-4092-8d36-fc145c194fb9",
+        "spaceId": "OVvnhf0zgFUPKznN/Codecon 2023 - 2",
+        "mapId": "blank"
       },
       {
-        "objId": "8hcOfissEkud8ZOYn1hv_238e89f1-c574-4b70-9922-4529457d60a4",
-        "spaceId": "aqQVlXTpX2ISp0ci/codecon-2022-sala-2",
-        "mapId": "84znn8A-iPkAhC8T8dxeY"
+        "objId": "TZxjiRxuB3ZrtyJz3QXmp_aadf6129-e426-4b69-ac1e-7515ffc205bd",
+        "spaceId": "OVvnhf0zgFUPKznN/Codecon 2023 - 2",
+        "mapId": "blank"
       },
       {
-        "objId": "a30sTBCOk2ECSJlzUymF_4706bad8-cd14-4a87-90a9-a352be810ccd",
-        "spaceId": "ZXHxMgrgOseuus8N/codecon-2022-sala-3",
-        "mapId": "cV2hK1iJ2d_o0WVotlf20"
+        "objId": "1teEkzNrJOUXnS33FsIe_9890b7a0-0b96-482c-9cc0-7780f858e7af",
+        "spaceId": "OVvnhf0zgFUPKznN/Codecon 2023 - 2",
+        "mapId": "blank"
       },
       {
-        "objId": "a30sTBCOk2ECSJlzUymF_c4748099-15a0-4e4c-b94e-cb32d004c99f",
-        "spaceId": "ZXHxMgrgOseuus8N/codecon-2022-sala-3",
-        "mapId": "--jlyOAYhHt_Cd68kBiPO"
-      },
-    ]
-  },
-  {
-    name: "03",
-    bugs: [
-      {
-        "objId": "cOjmryPf-m-BwgxbIYgG_34611c48-1d7c-43ca-84e5-12a6631ca43a",
-        "spaceId": "VSqg1CcrGZHUwtaT/Codecon-2022",
-        "mapId": "b2h27gMYywH5rGahxRxl3"
+        "objId": "TZxjiRxuB3ZrtyJz3QXmp_e1264ace-ba27-4917-ab5f-7baa0e4742e1",
+        "spaceId": "OVvnhf0zgFUPKznN/Codecon 2023 - 2",
+        "mapId": "blank"
       },
       {
-        "objId": "386-wnRwEykSwk9v2XlU_aca49f5d-06aa-4ba1-9797-c58e8c6c0afe",
-        "spaceId": "VSqg1CcrGZHUwtaT/Codecon-2022",
-        "mapId": "qS4c3TKl_IR7fa01chmRL"
+        "objId": "1teEkzNrJOUXnS33FsIe_7c3feb00-b7c3-4ddd-9872-3e28f383dcf5",
+        "spaceId": "OVvnhf0zgFUPKznN/Codecon 2023 - 2",
+        "mapId": "blank"
       },
       {
-        "objId": "9PUhPOceIa2nq6CZIyeqn_1e045b85-2e85-410e-99fd-3f8fbf0a403f",
-        "spaceId": "SSoqWgxuuoJPlXM7/codecon-2022-atividades",
-        "mapId": "NoeTPW4_NFHdXoOkjweXa"
+        "objId": "7AwDZUSmcw3PL1fViCYpw_c6e2269f-8d39-4dad-9c75-74d065bc0e61",
+        "spaceId": "cfTnBsETAY2ODiMS/Codecon 2023 - Atividades",
+        "mapId": "T2FGOh8XOudyT0Fef4V_p"
       },
       {
-        "objId": "PM8YB05PY28uZWwm6JgCh_1dcf5bbc-c07e-44e3-a392-d0454e98278f",
-        "spaceId": "SSoqWgxuuoJPlXM7/codecon-2022-atividades",
-        "mapId": "jSQVyzegXY0U9XBaxR--7"
-      },
-      {
-        "objId": "a9HQAG2tKy2c3sOtrGuBD_6ffc0992-175c-4108-9771-f82466290e18",
-        "spaceId": "DfVMRgRjpjJSoK5y/codecon-2022-sala-1",
-        "mapId": "Gzffv238NzvOqkbm9NaVy"
-      },
-      {
-        "objId": "ufJEiBGWUSeEGTKAUTdYZ_8cb83429-7918-4b7c-a6a3-ab7ff7c4b656",
-        "spaceId": "ZXHxMgrgOseuus8N/codecon-2022-sala-3",
-        "mapId": "cV2hK1iJ2d_o0WVotlf20"
-      },
-      {
-        "objId": "ufJEiBGWUSeEGTKAUTdYZ_0ebb9888-0b4f-4cb7-8202-86774b453b5a",
-        "spaceId": "ZXHxMgrgOseuus8N/codecon-2022-sala-3",
-        "mapId": "--jlyOAYhHt_Cd68kBiPO"
+        "objId": "ZcYGNZZ83Lww3xExYbfk_84bda1e1-a6c9-43cf-bdfe-8eb30fc4a5a6",
+        "spaceId": "6aaOlXvif1ho61ny/Codecon 2023 - Sala 2",
+        "mapId": "6fyXE51vHMR1OWljq_KFK"
       }
     ]
-  }
+  },
 ]
