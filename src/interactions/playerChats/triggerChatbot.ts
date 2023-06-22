@@ -9,7 +9,10 @@ export async function triggerChatbot(data: PlayerChatsEventData, context: Server
   try {
     // Ignore DMs
     const messageType = data.playerChats.messageType
-    if (messageType === 'DM') return
+    if (messageType === 'DM') {
+      // TODO: Tell the player that the bot doesn't reply to DMs
+      return
+    }
 
     // Ignore messages that are not commands
     const message = data.playerChats.contents

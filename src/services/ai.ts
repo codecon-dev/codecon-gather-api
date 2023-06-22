@@ -26,11 +26,16 @@ class AIManager {
     try {
       const date = new Date();
       const time = date.toLocaleTimeString("pt-BR", {
+        timeZone: "America/Sao_Paulo",
         hour: "numeric",
         minute: "numeric",
       });
-      const day = date.toLocaleDateString("pt-BR", { weekday: "long" });
+      const day = date.toLocaleDateString("pt-BR", {
+        timeZone: "America/Sao_Paulo",
+        weekday: "long"
+      });
       const fullDate = date.toLocaleDateString("pt-BR", {
+        timeZone: "America/Sao_Paulo",
         month: "long",
         day: "numeric",
         year: "numeric",
